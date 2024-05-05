@@ -8,6 +8,9 @@ window.config = {
   showCPUFallbackMessage: true,
   showWarningMessageForCrossOrigin: true,
 
+  // We acknowledged of investigational use dialog already
+  investigationalUseDialog: 'never',
+
   // Hide studies list view
   showStudyList: false,
 

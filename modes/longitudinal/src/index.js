@@ -103,7 +103,7 @@ function modeFactory({ modeConfiguration }) {
         'Capture',
         'Layout',
         'Crosshairs',
-        'MoreTools',
+        ...moreTools.map(tool => tool.id),
       ]);
 
       customizationService.addModeCustomizations([

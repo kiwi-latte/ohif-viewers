@@ -2,6 +2,7 @@ import type { RunCommand } from '@ohif/core/types';
 import { EVENTS } from '@cornerstonejs/core';
 import { ToolbarService, ViewportGridService } from '@ohif/core';
 import { setToolActiveToolbar } from './toolbarButtons';
+import { expandAllSplitButtons } from './utils';
 const { createButton } = ToolbarService;
 
 const ReferenceLinesListeners: RunCommand = [
@@ -179,4 +180,6 @@ const moreTools = [
   },
 ];
 
-export default moreTools;
+// (PACs) We want to expand all tools on the toolbar
+// @ts-expect-error `Button` type mismatch from the upstream
+export default expandAllSplitButtons(moreTools);

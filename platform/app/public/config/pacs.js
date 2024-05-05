@@ -9,7 +9,7 @@ window.config = {
   showWarningMessageForCrossOrigin: true,
 
   // We acknowledged of investigational use dialog already
-  investigationalUseDialog: 'never',
+  investigationalUseDialog: { option: 'never' },
 
   // Hide studies list view
   showStudyList: false,

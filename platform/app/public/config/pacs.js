@@ -5,8 +5,8 @@ window.config = {
   extensions: [],
 
   showLoadingIndicator: true,
-  showCPUFallbackMessage: true,
-  showWarningMessageForCrossOrigin: true,
+  showCPUFallbackMessage: false,
+  showWarningMessageForCrossOrigin: false,
 
   // We acknowledged of investigational use dialog already
   investigationalUseDialog: { option: 'never' },

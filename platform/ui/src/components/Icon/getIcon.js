@@ -213,6 +213,7 @@ import layoutAdvancedAxialPrimary from './../../assets/icons/layout-advanced-axi
 import layoutAdvancedMPR from './../../assets/icons/layout-advanced-mpr.svg';
 import layoutCommon1x1 from './../../assets/icons/layout-common-1x1.svg';
 import layoutCommon1x2 from './../../assets/icons/layout-common-1x2.svg';
+import layoutCommon1x2Horizontal from './../../assets/icons/layout-common-1x2-horizontal.svg';
 import layoutCommon2x2 from './../../assets/icons/layout-common-2x2.svg';
 import layoutCommon2x3 from './../../assets/icons/layout-common-2x3.svg';
 import iconToolRotate from './../../assets/icons/tool-3d-rotate.svg';
@@ -429,6 +430,7 @@ const ICONS = {
   'layout-advanced-mpr': layoutAdvancedMPR,
   'layout-common-1x1': layoutCommon1x1,
   'layout-common-1x2': layoutCommon1x2,
+  'layout-common-1x2-horizontal': layoutCommon1x2Horizontal,
   'layout-common-2x2': layoutCommon2x2,
   'layout-common-2x3': layoutCommon2x3,
   'tab-4d': tab4D,

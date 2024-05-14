@@ -1,5 +1,6 @@
 import React from 'react';
 import { WrappedPanelStudyBrowser, PanelMeasurementTable } from './Panels';
+import { PanelLayoutSettings } from './Panels/PanelLayoutSettings';
 import i18n from 'i18next';
 
 // TODO:
@@ -11,6 +12,16 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
   const wrappedMeasurementPanel = () => {
     return (
       <PanelMeasurementTable
+        commandsManager={commandsManager}
+        servicesManager={servicesManager}
+        extensionManager={extensionManager}
+      />
+    );
+  };
+
+  const wrappedLayoutSettingsPanel = () => {
+    return (
+      <PanelLayoutSettings
         commandsManager={commandsManager}
         servicesManager={servicesManager}
         extensionManager={extensionManager}
@@ -37,6 +48,14 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
       label: i18n.t('SidePanel:Measurements'),
       secondaryLabel: i18n.t('SidePanel:Measurements'),
       component: wrappedMeasurementPanel,
+    },
+    {
+      name: 'layoutSettings',
+      iconName: 'tool-layout',
+      iconLabel: 'Layout',
+      label: 'Layout',
+      secondaryLabel: 'Layout',
+      component: wrappedLayoutSettingsPanel,
     },
   ];
 }

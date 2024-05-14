@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { LayoutSelector as OHIFLayoutSelector, ToolbarButton, LayoutPreset } from '@ohif/ui';
 import { ServicesManager } from '@ohif/core';
 
-const defaultCommonPresets = [
+export const defaultCommonPresets = [
   {
     icon: 'layout-common-1x1',
     commandOptions: {
@@ -19,17 +19,17 @@ const defaultCommonPresets = [
     },
   },
   {
+    icon: 'layout-common-1x2-horizontal',
+    commandOptions: {
+      numRows: 2,
+      numCols: 1,
+    },
+  },
+  {
     icon: 'layout-common-2x2',
     commandOptions: {
       numRows: 2,
       numCols: 2,
-    },
-  },
-  {
-    icon: 'layout-common-2x3',
-    commandOptions: {
-      numRows: 2,
-      numCols: 3,
     },
   },
 ];

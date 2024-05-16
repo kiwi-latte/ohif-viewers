@@ -3,7 +3,6 @@ import i18n from 'i18next';
 import { id } from './id';
 import initToolGroups from './initToolGroups';
 import toolbarButtons from './toolbarButtons';
-import moreTools from './moreTools';
 
 // Allow this mode by excluding non-imaging modalities such as SR, SEG
 // Also, SM is not a simple imaging modalities, so exclude it.
@@ -94,17 +93,27 @@ function modeFactory({ modeConfiguration }) {
       // Init Default and SR ToolGroups
       initToolGroups(extensionManager, toolGroupService, commandsManager, this.labelConfig);
 
-      toolbarService.addButtons([...toolbarButtons, ...moreTools]);
+      toolbarService.addButtons([...toolbarButtons]);
       toolbarService.createButtonSection('primary', [
-        'MeasurementTools',
         'Zoom',
         'Pan',
-        'TrackballRotate',
         'WindowLevel',
+        'Reset',
+        'EndMoveTools',
+        'Length',
+        'ProbeTools',
+        'EllipticalROI',
+        'RectangleROI',
+        'ArrowAnnotate',
+        'OtherMeasurementTools',
+        'EndMeasurementTools',
+        'RotateRight',
+        'RotateLeft',
+        'FlipHorizontal',
+        'FlipVertical',
+        'EndTransformTools',
         'Capture',
-        'Layout',
-        'Crosshairs',
-        ...moreTools.map(tool => tool.id),
+        'TagBrowser',
       ]);
 
       customizationService.addModeCustomizations([
@@ -243,4 +252,4 @@ const mode = {
 };
 
 export default mode;
-export { initToolGroups, moreTools, toolbarButtons };
+export { initToolGroups, toolbarButtons };

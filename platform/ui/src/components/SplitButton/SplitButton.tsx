@@ -137,7 +137,6 @@ const SplitButton = ({
                 data-cy={`${groupId}-split-button-primary`}
               />
             </div>
-            <div className={classes.Separator({ ...state, primary })}></div>
             <div
               className={classes.Secondary({ ...state, primary })}
               onClick={toggleExpanded}

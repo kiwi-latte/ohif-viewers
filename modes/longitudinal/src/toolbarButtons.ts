@@ -14,30 +14,171 @@ export const setToolActiveToolbar = {
 
 const toolbarButtons: Button[] = [
   {
-    id: 'MeasurementTools',
+    id: 'EndMoveTools',
+    uiType: 'ohif.divider',
+  },
+  {
+    id: 'EndMeasurementTools',
+    uiType: 'ohif.divider',
+  },
+  {
+    id: 'EndTransformTools',
+    uiType: 'ohif.divider',
+  },
+  {
+    id: 'Zoom',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-zoom',
+      label: 'Zoom',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'WindowLevel',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-window-level',
+      label: 'Window Level',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'Pan',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-move',
+      label: 'Pan',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'Magnify',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-magnify',
+      label: 'Zoom-in',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'Reset',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-reset',
+      label: 'Reset',
+      commands: 'resetViewport',
+      evaluate: 'evaluate.action',
+    },
+  },
+  {
+    id: 'Length',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-length',
+      label: 'Length',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'ProbeTools',
     uiType: 'ohif.splitButton',
     props: {
-      groupId: 'MeasurementTools',
-      // group evaluate to determine which item should move to the top
+      groupId: 'ProbeTools',
       evaluate: 'evaluate.group.promoteToPrimaryIfCornerstoneToolNotActiveInTheList',
       primary: createButton({
-        id: 'Length',
-        icon: 'tool-length',
-        label: 'Length',
-        tooltip: 'Length Tool',
+        id: 'Probe',
+        icon: 'tool-probe',
+        label: 'Probe',
+        tooltip: 'Probe',
         commands: setToolActiveToolbar,
         evaluate: 'evaluate.cornerstoneTool',
       }),
       secondary: {
         icon: 'chevron-down',
-        tooltip: 'More Measure Tools',
+        label: 'More Probe Tools',
+        tooltip: 'More Probe Tools',
       },
       items: [
         createButton({
-          id: 'Length',
-          icon: 'tool-length',
-          label: 'Length',
-          tooltip: 'Length Tool',
+          id: 'Probe',
+          icon: 'tool-probe',
+          label: 'Probe',
+          tooltip: 'Probe',
+          commands: setToolActiveToolbar,
+          evaluate: 'evaluate.cornerstoneTool',
+        }),
+        createButton({
+          id: 'AdvancedMagnify',
+          icon: 'icon-tool-loupe',
+          label: 'Magnify Probe',
+          tooltip: 'Magnify Probe',
+          commands: 'toggleActiveDisabledToolbar',
+          evaluate: 'evaluate.cornerstoneTool.toggle.ifStrictlyDisabled',
+        }),
+      ],
+    },
+  },
+  {
+    id: 'EllipticalROI',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-ellipse',
+      label: 'Ellipse',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'RectangleROI',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-rectangle',
+      label: 'Rectangle',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'ArrowAnnotate',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-annotate',
+      label: 'Annotation',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'OtherMeasurementTools',
+    uiType: 'ohif.splitButton',
+    props: {
+      groupId: 'OtherMeasurementTools',
+      evaluate: 'evaluate.group.promoteToPrimaryIfCornerstoneToolNotActiveInTheList',
+      primary: createButton({
+        id: 'Angle',
+        icon: 'tool-angle',
+        label: 'Angle',
+        tooltip: 'Angle',
+        commands: setToolActiveToolbar,
+        evaluate: 'evaluate.cornerstoneTool',
+      }),
+      secondary: {
+        icon: 'chevron-down',
+        label: 'More Measurement Tools',
+        tooltip: 'More Measurement Tools',
+      },
+      items: [
+        createButton({
+          id: 'Angle',
+          icon: 'tool-angle',
+          label: 'Angle',
+          tooltip: 'Angle',
           commands: setToolActiveToolbar,
           evaluate: 'evaluate.cornerstoneTool',
         }),
@@ -46,30 +187,6 @@ const toolbarButtons: Button[] = [
           icon: 'tool-bidirectional',
           label: 'Bidirectional',
           tooltip: 'Bidirectional Tool',
-          commands: setToolActiveToolbar,
-          evaluate: 'evaluate.cornerstoneTool',
-        }),
-        createButton({
-          id: 'ArrowAnnotate',
-          icon: 'tool-annotate',
-          label: 'Annotation',
-          tooltip: 'Arrow Annotate',
-          commands: setToolActiveToolbar,
-          evaluate: 'evaluate.cornerstoneTool',
-        }),
-        createButton({
-          id: 'EllipticalROI',
-          icon: 'tool-ellipse',
-          label: 'Ellipse',
-          tooltip: 'Ellipse ROI',
-          commands: setToolActiveToolbar,
-          evaluate: 'evaluate.cornerstoneTool',
-        }),
-        createButton({
-          id: 'RectangleROI',
-          icon: 'tool-rectangle',
-          label: 'Rectangle',
-          tooltip: 'Rectangle ROI',
           commands: setToolActiveToolbar,
           evaluate: 'evaluate.cornerstoneTool',
         }),
@@ -109,50 +226,43 @@ const toolbarButtons: Button[] = [
     },
   },
   {
-    id: 'Zoom',
+    id: 'RotateRight',
     uiType: 'ohif.radioGroup',
     props: {
-      icon: 'tool-zoom',
-      label: 'Zoom',
-      commands: setToolActiveToolbar,
-      evaluate: 'evaluate.cornerstoneTool',
-    },
-  },
-  // Window Level
-  {
-    id: 'WindowLevel',
-    uiType: 'ohif.radioGroup',
-    props: {
-      icon: 'tool-window-level',
-      label: 'Window Level',
-      commands: setToolActiveToolbar,
-      evaluate: 'evaluate.cornerstoneTool',
-    },
-  },
-  // Pan...
-  {
-    id: 'Pan',
-    uiType: 'ohif.radioGroup',
-    props: {
-      type: 'tool',
-      icon: 'tool-move',
-      label: 'Pan',
-      commands: setToolActiveToolbar,
-      evaluate: 'evaluate.cornerstoneTool',
+      icon: 'tool-rotate-right',
+      label: 'Rotate Right',
+      commands: 'rotateViewportCW',
+      evaluate: 'evaluate.action',
     },
   },
   {
-    id: 'TrackballRotate',
+    id: 'RotateLeft',
     uiType: 'ohif.radioGroup',
     props: {
-      type: 'tool',
-      icon: 'tool-3d-rotate',
-      label: '3D Rotate',
-      commands: setToolActiveToolbar,
-      evaluate: {
-        name: 'evaluate.cornerstoneTool',
-        disabledText: 'Select a 3D viewport to enable this tool',
-      },
+      icon: 'tool-rotate-left',
+      label: 'Rotate Left',
+      commands: 'rotateViewportCCW',
+      evaluate: 'evaluate.action',
+    },
+  },
+  {
+    id: 'FlipHorizontal',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-flip-horizontal',
+      label: 'Flip Horizontal',
+      commands: 'flipViewportHorizontal',
+      evaluate: ['evaluate.viewportProperties.toggle', 'evaluate.not3D'],
+    },
+  },
+  {
+    id: 'FlipVertical',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-flip-vertical',
+      label: 'Flip Vertical',
+      commands: 'flipViewportVertical',
+      evaluate: ['evaluate.viewportProperties.toggle', 'evaluate.not3D'],
     },
   },
   {
@@ -166,31 +276,12 @@ const toolbarButtons: Button[] = [
     },
   },
   {
-    id: 'Layout',
-    uiType: 'ohif.layoutSelector',
-    props: {
-      rows: 3,
-      columns: 4,
-      evaluate: 'evaluate.action',
-    },
-  },
-  {
-    id: 'Crosshairs',
+    id: 'TagBrowser',
     uiType: 'ohif.radioGroup',
     props: {
-      type: 'tool',
-      icon: 'tool-crosshair',
-      label: 'Crosshairs',
-      commands: {
-        commandName: 'setToolActiveToolbar',
-        commandOptions: {
-          toolGroupIds: ['mpr'],
-        },
-      },
-      evaluate: {
-        name: 'evaluate.cornerstoneTool',
-        disabledText: 'Select an MPR viewport to enable this tool',
-      },
+      icon: 'dicom-tag-browser',
+      label: 'Dicom Tag Browser',
+      commands: 'openDICOMTagViewer',
     },
   },
 ];

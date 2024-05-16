@@ -6,6 +6,7 @@ import {
   PanelLayoutSettings,
 } from './Panels';
 import i18n from 'i18next';
+import { PanelSection } from '@ohif/ui';
 
 // TODO:
 // - No loading UI exists yet
@@ -23,17 +24,23 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
     );
   };
 
-  const wrappedLayoutSettingsPanel = () => {
+  const preferencesPanel = () => {
     return (
-      <PanelLayoutSettings
-        commandsManager={commandsManager}
-        servicesManager={servicesManager}
-      />
+      <>
+        <PanelSection title="Layout">
+          <PanelLayoutSettings
+            commandsManager={commandsManager}
+            servicesManager={servicesManager}
+          />
+        </PanelSection>
+        <PanelSection title="Image Tools">
+          <PanelImageTools
+            commandsManager={commandsManager}
+            servicesManager={servicesManager}
+          />
+        </PanelSection>
+      </>
     );
-  };
-
-  const wrappedImageToolsPanel = () => {
-    return <PanelImageTools commandsManager={commandsManager} />;
   };
 
   return [
@@ -57,20 +64,12 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
       component: wrappedMeasurementPanel,
     },
     {
-      name: 'layoutSettings',
-      iconName: 'tool-layout',
-      iconLabel: 'Layout',
-      label: 'Layout',
-      secondaryLabel: 'Layout',
-      component: wrappedLayoutSettingsPanel,
-    },
-    {
-      name: 'imageTools',
+      name: 'preferences',
       iconName: 'icon-settings',
-      iconLabel: 'Image Tools',
-      label: 'Image Tools',
-      secondaryLabel: 'Image Tools',
-      component: wrappedImageToolsPanel,
+      iconLabel: 'Preferences',
+      label: 'Preferences',
+      secondaryLabel: 'Preferences',
+      component: preferencesPanel,
     },
   ];
 }

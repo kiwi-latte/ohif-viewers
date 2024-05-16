@@ -19,7 +19,6 @@ import './OHIFCornerstoneViewport.css';
 import CornerstoneOverlays from './Overlays/CornerstoneOverlays';
 import getSOPInstanceAttributes from '../utils/measurementServiceMappings/utils/getSOPInstanceAttributes';
 import CornerstoneServices from '../types/CornerstoneServices';
-import CinePlayer from '../components/CinePlayer';
 import { Types } from '@ohif/core';
 
 import OHIFViewportActionCorners from '../components/OHIFViewportActionCorners';
@@ -434,11 +433,6 @@ const OHIFCornerstoneViewport = React.memo(props => {
           toolBarService={toolbarService}
           element={elementRef.current}
           scrollbarHeight={scrollbarHeight}
-          servicesManager={servicesManager}
-        />
-        <CinePlayer
-          enabledVPElement={enabledVPElement}
-          viewportId={viewportId}
           servicesManager={servicesManager}
         />
       </div>

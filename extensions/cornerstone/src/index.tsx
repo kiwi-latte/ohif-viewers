@@ -36,6 +36,7 @@ import { showLabelAnnotationPopup } from './utils/callInputDialog';
 import ViewportActionCornersService from './services/ViewportActionCornersService/ViewportActionCornersService';
 import { ViewportActionCornersProvider } from './contextProviders/ViewportActionCornersProvider';
 import ActiveViewportWindowLevel from './components/ActiveViewportWindowLevel';
+import CinePlayer from './components/CinePlayer';
 
 const { helpers: volumeLoaderHelpers } = csStreamingImageVolumeLoader;
 const { getDynamicVolumeInfo } = volumeLoaderHelpers ?? {};
@@ -194,7 +195,9 @@ export {
   measurementMappingUtils,
   CornerstoneExtensionTypes as Types,
   toolNames,
+  getEnabledElement,
   getActiveViewportEnabledElement,
   ImageOverlayViewerTool,
+  CinePlayer,
 };
 export default cornerstoneExtension;

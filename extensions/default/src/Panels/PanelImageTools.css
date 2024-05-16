@@ -1,0 +1,31 @@
+/* Overrides of Cornerstone's Cine Player for displaying in sidebar */
+.cine-player-wrapper {
+  /* The Cine Player is originally being displayed absolutely over each view */
+  /* In order to display in the left sidebar, we have to reset its position */
+  & > div.absolute {
+    position: static;
+    transform: none;
+
+    /* Make it flex to fill the width of the container (originally inline-flex) */
+    /* Remove border and padding for better visual */
+    & > div {
+      display: flex;
+
+      padding: 0;
+      border: none;
+
+      /* Make the FPS input fill the empty space for better visual */
+      /* Center the controller to reduce mouse movements to change FPS */
+      & > div {
+        flex-grow: 1;
+        justify-content: center;
+      }
+
+      /* Remove close button, this will close Cine Player */
+      /* It means that the Cine Player will be faded away */
+      & > svg:last-of-type {
+        display: none;
+      }
+    }
+  }
+}

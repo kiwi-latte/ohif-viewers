@@ -13,8 +13,7 @@ const ohif = {
   layout: '@ohif/extension-default.layoutTemplateModule.viewerLayout',
   sopClassHandler: '@ohif/extension-default.sopClassHandlerModule.stack',
   thumbnailList: '@ohif/extension-default.panelModule.seriesList',
-  layoutSettings: '@ohif/extension-default.panelModule.layoutSettings',
-  imageTools: '@ohif/extension-default.panelModule.imageTools',
+  preferences: '@ohif/extension-default.panelModule.preferences',
 };
 
 const tracked = {
@@ -183,7 +182,7 @@ function modeFactory({ modeConfiguration }) {
           return {
             id: ohif.layout,
             props: {
-              leftPanels: [ohif.layoutSettings, ohif.imageTools],
+              leftPanels: [ohif.preferences, tracked.measurements, dicomSeg.panel],
               rightPanels: [tracked.thumbnailList],
               rightPanelClosed: false,
               viewports: [

@@ -13,11 +13,12 @@ const imageTools = [
 
 export default function PanelImageTools({ commandsManager }): React.FunctionComponent {
   return (
-    <div className="flex flex-wrap justify-between p-2">
+    <div className="flex flex-wrap justify-between p-2 text-white">
       {imageTools.map(tool => (
         <IconButton
           key={tool.icon}
           size="toolbar"
+          className="hover:bg-primary-dark"
           onClick={() => commandsManager.runCommand(tool.commandName)}
         >
           <Icon name={tool.icon} />

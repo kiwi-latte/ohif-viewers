@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, LayoutPreset, LayoutSelector, Tooltip } from '@ohif/ui';
+import { Icon, IconButton, LayoutSelector, Tooltip } from '@ohif/ui';
 import { ServicesManager, CommandsManager } from '@ohif/core';
 import { defaultCommonPresets } from '../Toolbar/ToolbarLayoutSelector';
 
@@ -28,14 +28,15 @@ export default function PanelLayoutSettings({
 
   return (
     <div className="flex flex-wrap justify-between p-2 text-white">
-      {presets.map((preset, index) => (
-        <LayoutPreset
-          key={index}
-          classNames="rounded hover:bg-primary-dark group p-1 cursor-pointer"
-          icon={preset.icon}
-          commandOptions={preset.commandOptions}
-          onSelection={onSelection}
-        />
+      {presets.map(preset => (
+        <IconButton
+          key={preset.icon}
+          size="toolbar"
+          className="hover:bg-primary-dark"
+          onClick={() => onSelection(preset.commandOptions)}
+        >
+          <Icon name={preset.icon} />
+        </IconButton>
       ))}
 
       <div onMouseEnter={handleMouseEnter}>
@@ -50,12 +51,12 @@ export default function PanelLayoutSettings({
             />
           }
         >
-          <div className="hover:bg-primary-dark group cursor-pointer rounded p-1">
-            <Icon
-              className="group-hover:text-primary-light"
-              name="layout-common-2x3"
-            />
-          </div>
+          <IconButton
+            size="toolbar"
+            className="hover:bg-primary-dark"
+          >
+            <Icon name="layout-common-2x3" />
+          </IconButton>
         </Tooltip>
       </div>
     </div>

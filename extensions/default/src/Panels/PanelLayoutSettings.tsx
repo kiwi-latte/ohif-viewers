@@ -7,7 +7,10 @@ import { defaultCommonPresets } from '../Toolbar/ToolbarLayoutSelector';
 const MAX_LAYOUT_ROWS = 5;
 const MAX_LAYOUT_COLUMNS = 6;
 
-export function PanelLayoutSettings({ servicesManager, commandsManager }): React.FunctionComponent {
+export default function PanelLayoutSettings({
+  servicesManager,
+  commandsManager,
+}): React.FunctionComponent {
   const [isDisabledTooltip, setIsDisabledTooltip] = useState(false);
 
   const handleMouseEnter = useCallback(() => setIsDisabledTooltip(false), []);

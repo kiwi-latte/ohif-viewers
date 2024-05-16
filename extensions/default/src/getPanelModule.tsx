@@ -1,6 +1,10 @@
 import React from 'react';
-import { WrappedPanelStudyBrowser, PanelMeasurementTable } from './Panels';
-import { PanelLayoutSettings } from './Panels/PanelLayoutSettings';
+import {
+  WrappedPanelStudyBrowser,
+  PanelMeasurementTable,
+  PanelImageTools,
+  PanelLayoutSettings,
+} from './Panels';
 import i18n from 'i18next';
 
 // TODO:
@@ -24,9 +28,12 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
       <PanelLayoutSettings
         commandsManager={commandsManager}
         servicesManager={servicesManager}
-        extensionManager={extensionManager}
       />
     );
+  };
+
+  const wrappedImageToolsPanel = () => {
+    return <PanelImageTools commandsManager={commandsManager} />;
   };
 
   return [
@@ -56,6 +63,14 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
       label: 'Layout',
       secondaryLabel: 'Layout',
       component: wrappedLayoutSettingsPanel,
+    },
+    {
+      name: 'imageTools',
+      iconName: 'icon-settings',
+      iconLabel: 'Image Tools',
+      label: 'Image Tools',
+      secondaryLabel: 'Image Tools',
+      component: wrappedImageToolsPanel,
     },
   ];
 }

@@ -58,8 +58,9 @@ const findStudies = (key, value) => {
   return studies;
 };
 
-function createDicomJSONApi(dicomJsonConfig) {
+function createDicomJSONApi(dicomJsonConfig, servicesManager) {
   const { wadoRoot } = dicomJsonConfig;
+  const { userAuthenticationService } = servicesManager.services;
 
   const implementation = {
     initialize: async ({ query, url }) => {
@@ -77,7 +78,8 @@ function createDicomJSONApi(dicomJsonConfig) {
         });
       }
 
-      const response = await fetch(url);
+      const headers = userAuthenticationService.getAuthorizationHeader();
+      const response = await fetch(url, { headers });
       const data = await response.json();
 
       let StudyInstanceUID;

@@ -1,5 +1,6 @@
 import { DicomMetadataStore, IWebApiDataSource } from '@ohif/core';
 import OHIF from '@ohif/core';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 import getImageId from '../DicomWebDataSource/utils/getImageId';
 import getDirectURL from '../utils/getDirectURL';
@@ -58,6 +59,10 @@ const findStudies = (key, value) => {
   return studies;
 };
 
+function getUrl(query) {
+  return query.get('id') ? decompressFromEncodedURIComponent(query.get('id')) : query.get('url');
+}
+
 function createDicomJSONApi(dicomJsonConfig, servicesManager) {
   const { wadoRoot } = dicomJsonConfig;
   const { userAuthenticationService } = servicesManager.services;
@@ -65,7 +70,7 @@ function createDicomJSONApi(dicomJsonConfig, servicesManager) {
   const implementation = {
     initialize: async ({ query, url }) => {
       if (!url) {
-        url = query.get('url');
+        url = getUrl(query);
       }
       let metaData = getMetaDataByURL(url);
 
@@ -272,7 +277,7 @@ function createDicomJSONApi(dicomJsonConfig, servicesManager) {
       return imageIds;
     },
     getStudyInstanceUIDs: ({ params, query }) => {
-      const url = query.get('url');
+      const url = getUrl(query);
       return _store.studyInstanceUIDMap.get(url);
     },
   };

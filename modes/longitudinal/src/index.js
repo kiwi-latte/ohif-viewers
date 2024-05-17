@@ -95,13 +95,17 @@ function modeFactory({ modeConfiguration }) {
 
       toolbarService.addButtons([...toolbarButtons]);
       toolbarService.createButtonSection('primary', [
-        'Zoom',
+        'Layout',
+        'EndLayoutTools',
         'Pan',
+        'Zoom',
         'WindowLevel',
-        'Reset',
+        'StackScroll',
+        'TrackballRotate',
+        'Crosshairs',
         'EndMoveTools',
         'Length',
-        'ProbeTools',
+        'Probe',
         'EllipticalROI',
         'RectangleROI',
         'ArrowAnnotate',
@@ -111,8 +115,10 @@ function modeFactory({ modeConfiguration }) {
         'RotateLeft',
         'FlipHorizontal',
         'FlipVertical',
+        'Reset',
         'EndTransformTools',
         'Capture',
+        'MoreTools',
         'TagBrowser',
       ]);
 

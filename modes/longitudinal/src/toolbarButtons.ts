@@ -1,7 +1,8 @@
 // TODO: torn, can either bake this here; or have to create a whole new button type
 // Only ways that you can pass in a custom React component for render :l
-import { ToolbarService } from '@ohif/core';
-import type { Button } from '@ohif/core/types';
+import { ToolbarService, ViewportGridService } from '@ohif/core';
+import type { Button, RunCommand } from '@ohif/core/types';
+import { EVENTS } from '@cornerstonejs/core';
 
 const { createButton } = ToolbarService;
 
@@ -12,7 +13,18 @@ export const setToolActiveToolbar = {
   },
 };
 
+const ReferenceLinesListeners: RunCommand = [
+  {
+    commandName: 'setSourceViewportForReferenceLinesTool',
+    context: 'CORNERSTONE',
+  },
+];
+
 const toolbarButtons: Button[] = [
+  {
+    id: 'EndLayoutTools',
+    uiType: 'ohif.divider',
+  },
   {
     id: 'EndMoveTools',
     uiType: 'ohif.divider',
@@ -24,6 +36,16 @@ const toolbarButtons: Button[] = [
   {
     id: 'EndTransformTools',
     uiType: 'ohif.divider',
+  },
+  {
+    id: 'Layout',
+    uiType: 'ohif.layoutSelector',
+    props: {
+      rows: 3,
+      columns: 4,
+      evaluate: 'evaluate.action',
+      commands: 'setViewportGridLayout',
+    },
   },
   {
     id: 'Zoom',
@@ -66,6 +88,48 @@ const toolbarButtons: Button[] = [
     },
   },
   {
+    id: 'StackScroll',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-stack-scroll',
+      label: 'Stack Scroll',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
+    },
+  },
+  {
+    id: 'TrackballRotate',
+    uiType: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-3d-rotate',
+      label: '3D Rotate',
+      commands: setToolActiveToolbar,
+      evaluate: {
+        name: 'evaluate.cornerstoneTool',
+        disabledText: 'Select a 3D viewport to enable this tool',
+      },
+    },
+  },
+  {
+    id: 'Crosshairs',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-crosshair',
+      label: 'Crosshairs',
+      commands: {
+        commandName: 'setToolActiveToolbar',
+        commandOptions: {
+          toolGroupIds: ['mpr'],
+        },
+      },
+      evaluate: {
+        name: 'evaluate.cornerstoneTool',
+        disabledText: 'Select an MPR viewport to enable this tool',
+      },
+    },
+  },
+  {
     id: 'Reset',
     uiType: 'ohif.radioGroup',
     props: {
@@ -86,42 +150,13 @@ const toolbarButtons: Button[] = [
     },
   },
   {
-    id: 'ProbeTools',
-    uiType: 'ohif.splitButton',
+    id: 'Probe',
+    uiType: 'ohif.radioGroup',
     props: {
-      groupId: 'ProbeTools',
-      evaluate: 'evaluate.group.promoteToPrimaryIfCornerstoneToolNotActiveInTheList',
-      primary: createButton({
-        id: 'Probe',
-        icon: 'tool-probe',
-        label: 'Probe',
-        tooltip: 'Probe',
-        commands: setToolActiveToolbar,
-        evaluate: 'evaluate.cornerstoneTool',
-      }),
-      secondary: {
-        icon: 'chevron-down',
-        label: 'More Probe Tools',
-        tooltip: 'More Probe Tools',
-      },
-      items: [
-        createButton({
-          id: 'Probe',
-          icon: 'tool-probe',
-          label: 'Probe',
-          tooltip: 'Probe',
-          commands: setToolActiveToolbar,
-          evaluate: 'evaluate.cornerstoneTool',
-        }),
-        createButton({
-          id: 'AdvancedMagnify',
-          icon: 'icon-tool-loupe',
-          label: 'Magnify Probe',
-          tooltip: 'Magnify Probe',
-          commands: 'toggleActiveDisabledToolbar',
-          evaluate: 'evaluate.cornerstoneTool.toggle.ifStrictlyDisabled',
-        }),
-      ],
+      icon: 'tool-probe',
+      label: 'Probe',
+      commands: setToolActiveToolbar,
+      evaluate: 'evaluate.cornerstoneTool',
     },
   },
   {
@@ -189,6 +224,14 @@ const toolbarButtons: Button[] = [
           tooltip: 'Bidirectional Tool',
           commands: setToolActiveToolbar,
           evaluate: 'evaluate.cornerstoneTool',
+        }),
+        createButton({
+          id: 'AdvancedMagnify',
+          icon: 'icon-tool-loupe',
+          label: 'Magnify Probe',
+          tooltip: 'Magnify Probe',
+          commands: 'toggleActiveDisabledToolbar',
+          evaluate: 'evaluate.cornerstoneTool.toggle.ifStrictlyDisabled',
         }),
         createButton({
           id: 'CircleROI',
@@ -282,6 +325,84 @@ const toolbarButtons: Button[] = [
       icon: 'dicom-tag-browser',
       label: 'Dicom Tag Browser',
       commands: 'openDICOMTagViewer',
+    },
+  },
+  {
+    id: 'MoreTools',
+    uiType: 'ohif.splitButton',
+    props: {
+      groupId: 'MoreTools',
+      evaluate: 'evaluate.group.promoteToPrimaryIfCornerstoneToolNotActiveInTheList',
+      primary: createButton({
+        id: 'Magnify',
+        icon: 'tool-magnify',
+        label: 'Zoom-in',
+        tooltip: 'Zoom-in',
+        commands: setToolActiveToolbar,
+        evaluate: 'evaluate.cornerstoneTool',
+      }),
+      secondary: {
+        icon: 'chevron-down',
+        label: '',
+        tooltip: 'More Tools',
+      },
+      items: [
+        createButton({
+          id: 'Magnify',
+          icon: 'tool-magnify',
+          label: 'Zoom-in',
+          tooltip: 'Zoom-in',
+          commands: setToolActiveToolbar,
+          evaluate: 'evaluate.cornerstoneTool',
+        }),
+        createButton({
+          id: 'ImageSliceSync',
+          icon: 'link',
+          label: 'Image Slice Sync',
+          tooltip: 'Enable position synchronization on stack viewports',
+          commands: {
+            commandName: 'toggleSynchronizer',
+            commandOptions: {
+              type: 'imageSlice',
+            },
+          },
+          listeners: {
+            [EVENTS.STACK_VIEWPORT_NEW_STACK]: {
+              commandName: 'toggleImageSliceSync',
+              commandOptions: { toggledState: true },
+            },
+          },
+          evaluate: ['evaluate.cornerstone.synchronizer', 'evaluate.not3D'],
+        }),
+        createButton({
+          id: 'ReferenceLines',
+          icon: 'tool-referenceLines',
+          label: 'Reference Lines',
+          tooltip: 'Show Reference Lines',
+          commands: 'toggleEnabledDisabledToolbar',
+          listeners: {
+            [ViewportGridService.EVENTS.ACTIVE_VIEWPORT_ID_CHANGED]: ReferenceLinesListeners,
+            [ViewportGridService.EVENTS.VIEWPORTS_READY]: ReferenceLinesListeners,
+          },
+          evaluate: 'evaluate.cornerstoneTool.toggle',
+        }),
+        createButton({
+          id: 'ImageOverlayViewer',
+          icon: 'toggle-dicom-overlay',
+          label: 'Image Overlay',
+          tooltip: 'Toggle Image Overlay',
+          commands: 'toggleEnabledDisabledToolbar',
+          evaluate: 'evaluate.cornerstoneTool.toggle',
+        }),
+        createButton({
+          id: 'UltrasoundDirectionalTool',
+          icon: 'icon-tool-ultrasound-bidirectional',
+          label: 'Ultrasound Directional',
+          tooltip: 'Ultrasound Directional',
+          commands: setToolActiveToolbar,
+          evaluate: ['evaluate.cornerstoneTool', 'evaluate.isUS'],
+        }),
+      ],
     },
   },
 ];

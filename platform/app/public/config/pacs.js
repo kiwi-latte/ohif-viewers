@@ -4,6 +4,10 @@ window.config = {
   modes: [],
   extensions: [],
 
+  // [CAUTION]: This will degrade the performance of the application.
+  // Only enable this option for debugging/ urgent purposes.
+  useSharedArrayBuffer: false,
+
   showLoadingIndicator: true,
   showCPUFallbackMessage: false,
   showWarningMessageForCrossOrigin: false,

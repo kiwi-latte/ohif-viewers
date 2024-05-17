@@ -27,7 +27,7 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
   const preferencesPanel = () => {
     return (
       <>
-        <PanelSection title="Layout">
+        <PanelSection title="Common Layout">
           <PanelLayoutSettings
             commandsManager={commandsManager}
             servicesManager={servicesManager}

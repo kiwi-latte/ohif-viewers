@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Thumbnail from '../Thumbnail';
-import ThumbnailNoImage from '../ThumbnailNoImage';
-import ThumbnailTracked from '../ThumbnailTracked';
+import ThumbnailCustom from '../Thumbnail/ThumbnailCustom';
+import ThumbnailNoImageCustom from '../ThumbnailNoImage/ThumbnailNoImageCustom';
+import ThumbnailTrackedCustom from '../ThumbnailTracked/ThumbnailTrackedCustom';
 import * as Types from '../../types';
 
 const ThumbnailList = ({
@@ -41,7 +41,7 @@ const ThumbnailList = ({
           switch (componentType) {
             case 'thumbnail':
               return (
-                <Thumbnail
+                <ThumbnailCustom
                   key={displaySetInstanceUID}
                   displaySetInstanceUID={displaySetInstanceUID}
                   dragData={dragData}
@@ -59,7 +59,7 @@ const ThumbnailList = ({
               );
             case 'thumbnailTracked':
               return (
-                <ThumbnailTracked
+                <ThumbnailTrackedCustom
                   key={displaySetInstanceUID}
                   displaySetInstanceUID={displaySetInstanceUID}
                   dragData={dragData}
@@ -79,7 +79,7 @@ const ThumbnailList = ({
               );
             case 'thumbnailNoImage':
               return (
-                <ThumbnailNoImage
+                <ThumbnailNoImageCustom
                   isActive={isActive}
                   key={displaySetInstanceUID}
                   displaySetInstanceUID={displaySetInstanceUID}

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
  * @param param0
  * @returns
  */
-const DisplaySetMessageListTooltip = ({ messages, id }): React.ReactNode => {
+const DisplaySetMessageListTooltip = ({ position, messages, id }): React.ReactNode => {
   const { t } = useTranslation('Messages');
   const [isOpen, setIsOpen] = useState(false);
   if (messages?.size()) {
@@ -25,7 +25,7 @@ const DisplaySetMessageListTooltip = ({ messages, id }): React.ReactNode => {
         />
         <PortalTooltip
           active={isOpen}
-          position="right"
+          position={position ?? 'right'}
           arrow="center"
           parent={`#${id}`}
         >
@@ -67,6 +67,7 @@ const DisplaySetMessageListTooltip = ({ messages, id }): React.ReactNode => {
 
 DisplaySetMessageListTooltip.propTypes = {
   messages: PropTypes.object,
+  position: PropTypes.oneOf(['bottom', 'bottom-left', 'bottom-right', 'left', 'right', 'top']),
 };
 
 export default DisplaySetMessageListTooltip;

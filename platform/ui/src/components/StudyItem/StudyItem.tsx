@@ -29,27 +29,17 @@ const StudyItem = ({
       role="button"
       tabIndex="0"
     >
-      <div className="flex flex-1 flex-col px-4 pb-2">
-        <div className="flex flex-row items-center justify-between pt-2 pb-2">
-          <div className="text-base text-white">{date}</div>
-          <div className="flex flex-row items-center text-base text-blue-300">
-            <Icon
-              name="group-layers"
-              className="mx-2 w-4 text-blue-300"
-            />
-            {numInstances}
-          </div>
-        </div>
-        <div className="flex flex-row items-center py-1">
-          <div className="text-l flex items-center pr-5 text-blue-300">{modalities}</div>
-          <div className="flex items-center break-words text-base text-blue-300">{description}</div>
-        </div>
+      <div className="flex flex-col pt-2 pb-2 text-center">
+        <div className="truncate text-sm text-white">{date}</div>
+        <div className="text-sm text-blue-300">{modalities}</div>
+        <div className="break-words text-sm text-blue-300">{description}</div>
+        <div className="text-sm text-blue-300">{numInstances} instances</div>
       </div>
       {!!trackedSeries && (
         <div className="flex-2 flex">
           <div
             className={classnames(
-              'bg-secondary-main mt-2 flex flex-row py-1 pl-2 pr-4 text-base text-white ',
+              'bg-secondary-main mt-2 flex flex-row py-1 pl-2 pr-4 text-xs text-white ',
               isActive
                 ? 'border-secondary-light flex-1 justify-center border-t'
                 : 'mx-4 mb-4 rounded-sm'

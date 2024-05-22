@@ -121,7 +121,7 @@ const SplitButton = ({
       >
         <div
           className={classes.Button({ ...state })}
-          style={{ height: '40px' }}
+          style={{ height: '36px' }}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >

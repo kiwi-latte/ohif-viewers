@@ -237,6 +237,43 @@ function CustomizableViewportOverlay({
     [_renderOverlayItem]
   );
 
+  const patientNameItem = {
+    id: 'PatientName',
+    customizationType: 'ohif.overlayItem',
+    label: 'Name:',
+    title: 'Patient Name',
+    condition: ({ instance }) =>
+      instance && instance.PatientName && instance.PatientName.Alphabetic,
+    contentF: ({ instance, formatters: { formatPN } }) => formatPN(instance.PatientName.Alphabetic),
+  };
+
+  const patientIdItem = {
+    id: 'PID',
+    customizationType: 'ohif.overlayItem',
+    label: 'PatId:',
+    title: 'Patient PID',
+    condition: ({ instance }) => instance && instance.PatientID,
+    contentF: ({ instance }) => instance.PatientID,
+  };
+
+  const patientAgeItem = {
+    id: 'PatientAge',
+    customizationType: 'ohif.overlayItem',
+    label: 'Age:',
+    title: 'Patient Age',
+    condition: ({ instance }) => instance && instance.PatientAge,
+    contentF: ({ instance }) => instance.PatientAge,
+  };
+
+  const patientSexItem = {
+    id: 'PatientSex',
+    customizationType: 'ohif.overlayItem',
+    label: 'Sex:',
+    title: 'Patient Sex',
+    condition: ({ instance }) => instance && instance.PatientSex,
+    contentF: ({ instance }) => instance.PatientSex,
+  };
+
   const studyDateItem = {
     id: 'StudyDate',
     customizationType: 'ohif.overlayItem',
@@ -261,14 +298,21 @@ function CustomizableViewportOverlay({
     ? instances
         .map((instance, index) => {
           return [
-            {
-              ...studyDateItem,
-              instanceIndex: index,
-            },
-            {
-              ...seriesDescriptionItem,
-              instanceIndex: index,
-            },
+            { ...patientNameItem, instanceIndex: index },
+            { ...patientIdItem, instanceIndex: index },
+            { ...patientAgeItem, instanceIndex: index },
+            { ...patientSexItem, instanceIndex: index },
+          ];
+        })
+        .flat()
+    : [];
+
+  const topRightItems = instances
+    ? instances
+        .map((instance, index) => {
+          return [
+            { ...studyDateItem, instanceIndex: index },
+            { ...seriesDescriptionItem, instanceIndex: index },
           ];
         })
         .flat()
@@ -282,7 +326,7 @@ function CustomizableViewportOverlay({
          */
         getContent(topLeftCustomization, [...topLeftItems], 'topLeftOverlayItem')
       }
-      topRight={getContent(topRightCustomization, [], 'topRightOverlayItem')}
+      topRight={getContent(topRightCustomization, [...topRightItems], 'topRightOverlayItem')}
       bottomLeft={getContent(
         bottomLeftCustomization,
         [

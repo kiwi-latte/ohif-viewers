@@ -41,6 +41,7 @@ export default function PanelLayoutSettings({
 
       <div onMouseEnter={handleMouseEnter}>
         <Tooltip
+          position="right"
           showHideDelay={50}
           isDisabled={isDisabledTooltip}
           content={

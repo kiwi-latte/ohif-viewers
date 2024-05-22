@@ -127,6 +127,7 @@ function ViewerLayout({
             <ErrorBoundary context="Left Panel">
               <SidePanelWithServices
                 side="left"
+                expandedWidth={186}
                 activeTabIndex={leftPanelClosedState ? null : 0}
                 servicesManager={servicesManager}
               />

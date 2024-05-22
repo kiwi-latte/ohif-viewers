@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon, IconButton } from '@ohif/ui';
 import { CommandsManager, ServicesManager } from '@ohif/core';
-import { WrappedCinePlayer } from './WrappedCinePlayer';
 import './PanelImageTools.css';
 
 const imageTools = [
@@ -13,10 +12,7 @@ const imageTools = [
   { icon: 'tool-invert', commandName: 'invertViewport' },
 ];
 
-export default function PanelImageTools({
-  commandsManager,
-  servicesManager,
-}): React.FunctionComponent {
+export default function PanelImageTools({ commandsManager }): React.FunctionComponent {
   return (
     <div className="space-y-2 p-2 text-white">
       <div className="flex flex-wrap justify-between">
@@ -30,11 +26,6 @@ export default function PanelImageTools({
             <Icon name={tool.icon} />
           </IconButton>
         ))}
-      </div>
-      <div className="bg-secondary-light h-px w-full"></div>
-      <div className="cine-player-wrapper relative space-y-2 px-2">
-        <p className="text-base">Image Play</p>
-        <WrappedCinePlayer servicesManager={servicesManager} />
       </div>
     </div>
   );

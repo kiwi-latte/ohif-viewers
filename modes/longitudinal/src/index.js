@@ -117,6 +117,7 @@ function modeFactory({ modeConfiguration }) {
         'FlipVertical',
         'Reset',
         'EndTransformTools',
+        'Cine',
         'Capture',
         'MoreTools',
         'TagBrowser',

@@ -309,6 +309,16 @@ const toolbarButtons: Button[] = [
     },
   },
   {
+    id: 'Cine',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-cine',
+      label: 'Cine',
+      commands: 'toggleCine',
+      evaluate: ['evaluate.cine', 'evaluate.not3D'],
+    },
+  },
+  {
     id: 'Capture',
     uiType: 'ohif.radioGroup',
     props: {

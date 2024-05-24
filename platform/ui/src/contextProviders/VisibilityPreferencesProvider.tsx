@@ -25,8 +25,6 @@ const reducer = (state, action) => {
 };
 
 export default function VisibilityPreferencesProvider({ children, service }) {
-  console.log(service);
-
   const [state, dispatch] = useReducer(reducer, DEFAULT_STATE);
 
   const getState = useCallback(() => state, [state]);

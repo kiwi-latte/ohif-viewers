@@ -11,12 +11,22 @@ const metadataProvider = classes.MetadataProvider;
  * @param {Object} configuration
  */
 export default function init({ servicesManager, configuration = {}, commandsManager }): void {
-  const { stateSyncService, toolbarService, cineService, viewportGridService } =
-    servicesManager.services;
+  const {
+    stateSyncService,
+    toolbarService,
+    cineService,
+    viewportGridService,
+    visibilityPreferencesService,
+  } = servicesManager.services;
 
   toolbarService.registerEventForToolbarUpdate(cineService, [
     cineService.EVENTS.CINE_STATE_CHANGED,
   ]);
+
+  toolbarService.registerEventForToolbarUpdate(visibilityPreferencesService, [
+    visibilityPreferencesService.EVENTS.VISIBILITY_PREFERENCES_CHANGED,
+  ]);
+
   // Add
   DicomMetadataStore.subscribe(DicomMetadataStore.EVENTS.INSTANCES_ADDED, handlePETImageMetadata);
 

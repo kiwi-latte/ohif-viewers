@@ -1,6 +1,8 @@
 import * as Types from './types';
 
 export {
+  useVisibilityPreferences,
+  VisibilityPreferencesProvider,
   useCine,
   CineProvider,
   DialogProvider,

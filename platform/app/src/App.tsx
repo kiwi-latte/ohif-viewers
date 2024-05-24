@@ -23,6 +23,7 @@ import {
   CineProvider,
   UserAuthenticationProvider,
   ToolboxProvider,
+  VisibilityPreferencesProvider,
 } from '@ohif/ui';
 // Viewer Project
 // TODO: Should this influence study list?
@@ -78,6 +79,7 @@ function App({ config, defaultExtensions, defaultModes }) {
     cineService,
     userAuthenticationService,
     customizationService,
+    visibilityPreferencesService,
   } = servicesManager.services;
 
   const providers = [
@@ -89,6 +91,7 @@ function App({ config, defaultExtensions, defaultModes }) {
     [ViewportGridProvider, { service: viewportGridService }],
     [ViewportDialogProvider, { service: uiViewportDialogService }],
     [CineProvider, { service: cineService }],
+    [VisibilityPreferencesProvider, { service: visibilityPreferencesService }],
     [SnackbarProvider, { service: uiNotificationService }],
     [DialogProvider, { service: uiDialogService }],
     [ModalProvider, { service: uiModalService, modal: Modal }],

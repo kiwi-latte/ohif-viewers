@@ -385,6 +385,15 @@ const toolbarButtons: Button[] = [
           evaluate: ['evaluate.cornerstone.synchronizer', 'evaluate.not3D'],
         }),
         createButton({
+          id: 'PatientInfo',
+          // TODO: Change icon
+          icon: 'tool-referenceLines',
+          label: 'Patient Info',
+          tooltip: 'Show Patient Info',
+          commands: 'toggleIsShownPatientInfo',
+          evaluate: 'evaluate.visbilityPreferences.toggleIsShownPatientInfo',
+        }),
+        createButton({
           id: 'ReferenceLines',
           icon: 'tool-referenceLines',
           label: 'Reference Lines',

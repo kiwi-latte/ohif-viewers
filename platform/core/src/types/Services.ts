@@ -9,6 +9,7 @@ import {
   UINotificationService,
   UIModalService,
   WorkflowStepsService,
+  VisibilityPreferencesService,
 } from '../services';
 
 /**
@@ -36,4 +37,5 @@ export default interface Services {
   segmentationService?: unknown;
   panelService?: unknown;
   colorbarService?: unknown;
+  visibilityPreferencesService?: VisibilityPreferencesService;
 }

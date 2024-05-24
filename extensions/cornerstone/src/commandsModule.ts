@@ -44,6 +44,7 @@ function commandsModule({
     colorbarService,
     hangingProtocolService,
     syncGroupService,
+    visibilityPreferencesService,
   } = servicesManager.services as CornerstoneServices;
 
   const { measurementServiceSource } = this;
@@ -240,7 +241,12 @@ function commandsModule({
       cineService.setIsCineEnabled(!isCineEnabled);
       viewports.forEach((_, index) => cineService.setCine({ id: index, isPlaying: false }));
     },
-
+    toggleIsShownPatientInfo: () => {
+      const { isShownPatientInfo } = visibilityPreferencesService.getState();
+      visibilityPreferencesService.setVisibilityPreferences({
+        isShownPatientInfo: !isShownPatientInfo,
+      });
+    },
     setViewportWindowLevel({ viewportId, window, level }) {
       // convert to numbers
       const windowWidthNum = Number(window);
@@ -943,6 +949,9 @@ function commandsModule({
     },
     toggleCine: {
       commandFn: actions.toggleCine,
+    },
+    toggleIsShownPatientInfo: {
+      commandFn: actions.toggleIsShownPatientInfo,
     },
     arrowTextCallback: {
       commandFn: actions.arrowTextCallback,

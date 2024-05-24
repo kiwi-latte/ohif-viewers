@@ -3,7 +3,7 @@ import { vec3 } from 'gl-matrix';
 import PropTypes from 'prop-types';
 import { metaData, Enums, utilities } from '@cornerstonejs/core';
 import { ImageSliceData } from '@cornerstonejs/core/dist/esm/types';
-import { ViewportOverlay } from '@ohif/ui';
+import { ViewportOverlay, useVisibilityPreferences } from '@ohif/ui';
 import { ServicesManager } from '@ohif/core';
 import { InstanceMetadata } from '@ohif/core/src/types';
 import { formatPN, formatDICOMDate, formatDICOMTime, formatNumberPrecision } from './utils';
@@ -63,6 +63,7 @@ function CustomizableViewportOverlay({
 }) {
   const { cornerstoneViewportService, customizationService, toolGroupService } =
     servicesManager.services;
+  const [{ isShownPatientInfo }] = useVisibilityPreferences();
   const [voi, setVOI] = useState({ windowCenter: null, windowWidth: null });
   const [scale, setScale] = useState(1);
   const { imageIndex } = imageSliceData;
@@ -243,7 +244,7 @@ function CustomizableViewportOverlay({
     label: 'Name:',
     title: 'Patient Name',
     condition: ({ instance }) =>
-      instance && instance.PatientName && instance.PatientName.Alphabetic,
+      isShownPatientInfo && instance && instance.PatientName && instance.PatientName.Alphabetic,
     contentF: ({ instance, formatters: { formatPN } }) => formatPN(instance.PatientName.Alphabetic),
   };
 
@@ -252,7 +253,7 @@ function CustomizableViewportOverlay({
     customizationType: 'ohif.overlayItem',
     label: 'PatId:',
     title: 'Patient PID',
-    condition: ({ instance }) => instance && instance.PatientID,
+    condition: ({ instance }) => isShownPatientInfo && instance && instance.PatientID,
     contentF: ({ instance }) => instance.PatientID,
   };
 

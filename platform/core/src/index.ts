@@ -15,6 +15,7 @@ import * as Enums from './enums';
 import { useToolbar } from './hooks/useToolbar';
 
 import {
+  VisibilityPreferencesService,
   CineService,
   UIDialogService,
   UIModalService,
@@ -66,6 +67,7 @@ const OHIF = {
   DICOMWeb,
   viewer: {},
   //
+  VisibilityPreferencesService,
   CineService,
   CustomizationService,
   StateSyncService,
@@ -108,6 +110,7 @@ export {
   log,
   DICOMWeb,
   //
+  VisibilityPreferencesService,
   CineService,
   CustomizationService,
   StateSyncService,

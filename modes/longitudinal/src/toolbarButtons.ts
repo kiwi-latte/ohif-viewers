@@ -329,12 +329,39 @@ const toolbarButtons: Button[] = [
     },
   },
   {
-    id: 'TagBrowser',
-    uiType: 'ohif.radioGroup',
+    id: 'InfoTools',
+    uiType: 'ohif.splitButton',
     props: {
-      icon: 'dicom-tag-browser',
-      label: 'Dicom Tag Browser',
-      commands: 'openDICOMTagViewer',
+      groupId: 'InfoTools',
+      primary: createButton({
+        id: 'TagBrowser',
+        icon: 'dicom-tag-browser',
+        label: 'Dicom Tag Browser',
+        tooltip: 'Dicom Tag Browser',
+        commands: 'openDICOMTagViewer',
+      }),
+      secondary: {
+        icon: 'chevron-down',
+        label: '',
+        tooltip: 'More Info Tools',
+      },
+      items: [
+        createButton({
+          id: 'TagBrowser',
+          icon: 'dicom-tag-browser',
+          label: 'Dicom Tag Browser',
+          tooltip: 'Dicom Tag Browser',
+          commands: 'openDICOMTagViewer',
+        }),
+        createButton({
+          id: 'PatientInfo',
+          icon: 'tool-info',
+          label: 'Patient Info',
+          tooltip: 'Show Patient Info',
+          commands: 'toggleIsShownPatientInfo',
+          evaluate: 'evaluate.visbilityPreferences.toggleIsShownPatientInfo',
+        }),
+      ],
     },
   },
   {
@@ -383,15 +410,6 @@ const toolbarButtons: Button[] = [
             },
           },
           evaluate: ['evaluate.cornerstone.synchronizer', 'evaluate.not3D'],
-        }),
-        createButton({
-          id: 'PatientInfo',
-          // TODO: Change icon
-          icon: 'tool-referenceLines',
-          label: 'Patient Info',
-          tooltip: 'Show Patient Info',
-          commands: 'toggleIsShownPatientInfo',
-          evaluate: 'evaluate.visbilityPreferences.toggleIsShownPatientInfo',
         }),
         createButton({
           id: 'ReferenceLines',

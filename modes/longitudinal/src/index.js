@@ -120,7 +120,7 @@ function modeFactory({ modeConfiguration }) {
         'Cine',
         'Capture',
         'MoreTools',
-        'TagBrowser',
+        'InfoTools',
       ]);
 
       customizationService.addModeCustomizations([

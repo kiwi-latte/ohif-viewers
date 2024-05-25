@@ -129,6 +129,8 @@ import toolScissorRect from './../../assets/icons/tool-scissor-rect.svg';
 import toolScissorCircle from './../../assets/icons/tool-scissor-circle.svg';
 import toolPaintFill from './../../assets/icons/tool-paint-fill.svg';
 import toolInfo from './../../assets/icons/tool-info.svg';
+import toolPatientInfo from './../../assets/icons/tool-patient-info.svg';
+import toolPatientInfoAnony from './../../assets/icons/tool-patient-info-anony.svg';
 import editPatient from './../../assets/icons/edit-patient.svg';
 import panelGroupMore from './../../assets/icons/panel-group-more.svg';
 import panelGroupOpenClose from './../../assets/icons/panel-group-open-close.svg';
@@ -342,6 +344,8 @@ const ICONS = {
   'tool-polygon': toolPolygon,
   'tool-3d-rotate': iconToolRotate,
   'tool-info': toolInfo,
+  'tool-patient-info': toolPatientInfo,
+  'tool-patient-info-anony': toolPatientInfoAnony,
   'edit-patient': editPatient,
   'icon-mpr': iconMPR,
   'icon-next-inactive': iconNextInactive,

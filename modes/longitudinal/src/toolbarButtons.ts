@@ -355,7 +355,7 @@ const toolbarButtons: Button[] = [
         }),
         createButton({
           id: 'PatientInfo',
-          icon: 'tool-info',
+          icon: 'tool-patient-info',
           label: 'Patient Info',
           tooltip: 'Show Patient Info',
           commands: 'toggleIsShownPatientInfo',
@@ -363,7 +363,7 @@ const toolbarButtons: Button[] = [
         }),
         createButton({
           id: 'AnonyInfo',
-          icon: 'tool-info',
+          icon: 'tool-patient-info-anony',
           label: 'Anony Info',
           tooltip: 'Anonymize Patient Info',
           commands: 'toggleIsShouldAnonymizePatientInfo',

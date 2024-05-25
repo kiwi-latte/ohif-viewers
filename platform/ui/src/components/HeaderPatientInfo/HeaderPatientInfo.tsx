@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '@ohif/ui';
+import { Icon, useVisibilityPreferences } from '@ohif/ui';
 import { utils } from '@ohif/core';
 import { PatientInfoVisibility } from '../../types';
 
@@ -15,6 +15,7 @@ const formatWithEllipsis = (str, maxLength) => {
 
 function usePatientInfo(servicesManager) {
   const { displaySetService } = servicesManager.services;
+  const [{ isShouldAnonymizePatientInfo: isAnonymized }] = useVisibilityPreferences();
 
   const [patientInfo, setPatientInfo] = useState({
     PatientName: '',
@@ -47,8 +48,12 @@ function usePatientInfo(servicesManager) {
       return;
     }
     setPatientInfo({
-      PatientID: instance.PatientID || null,
-      PatientName: instance.PatientName ? formatPN(instance.PatientName.Alphabetic) : null,
+      PatientID: isAnonymized ? '***' : instance.PatientID || null,
+      PatientName: isAnonymized
+        ? '***'
+        : instance.PatientName
+          ? formatPN(instance.PatientName.Alphabetic)
+          : null,
       PatientSex: instance.PatientSex || null,
       PatientDOB: formatDate(instance.PatientBirthDate) || null,
     });
@@ -63,9 +68,7 @@ function usePatientInfo(servicesManager) {
     return () => subscription.unsubscribe();
   }, []);
 
-  useEffect(() => {
-    updatePatientInfo();
-  }, [displaySets]);
+  useEffect(() => updatePatientInfo(), [displaySets, isAnonymized]);
 
   return { patientInfo, isMixedPatients };
 }

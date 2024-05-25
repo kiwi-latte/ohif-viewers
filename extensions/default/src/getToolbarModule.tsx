@@ -76,5 +76,12 @@ export default function getToolbarModule({ commandsManager, servicesManager }) {
         return getClassName(isToggled);
       },
     },
+    {
+      name: 'evaluate.visbilityPreferences.toggleIsShouldAnonymizePatientInfo',
+      evaluate: () => {
+        const isToggled = visibilityPreferencesService.getState().isShouldAnonymizePatientInfo;
+        return getClassName(isToggled);
+      },
+    },
   ];
 }

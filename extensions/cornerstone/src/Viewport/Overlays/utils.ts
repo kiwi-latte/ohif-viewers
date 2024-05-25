@@ -72,6 +72,17 @@ export function formatPN(name) {
 }
 
 /**
+ * Formats a string for display purposes
+ *
+ * @param {string} s
+ * @param {boolean} options.isAnonymized
+ * @returns {string} formatted name.
+ */
+export function formatString(s: string, options?: { isAnonymized?: boolean }) {
+  return options?.isAnonymized ? '***' : s;
+}
+
+/**
  * Gets compression type
  *
  * @param {number} imageId

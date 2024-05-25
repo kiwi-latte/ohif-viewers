@@ -247,6 +247,12 @@ function commandsModule({
         isShownPatientInfo: !isShownPatientInfo,
       });
     },
+    toggleIsShouldAnonymizePatientInfo: () => {
+      const { isShouldAnonymizePatientInfo } = visibilityPreferencesService.getState();
+      visibilityPreferencesService.setVisibilityPreferences({
+        isShouldAnonymizePatientInfo: !isShouldAnonymizePatientInfo,
+      });
+    },
     setViewportWindowLevel({ viewportId, window, level }) {
       // convert to numbers
       const windowWidthNum = Number(window);
@@ -952,6 +958,9 @@ function commandsModule({
     },
     toggleIsShownPatientInfo: {
       commandFn: actions.toggleIsShownPatientInfo,
+    },
+    toggleIsShouldAnonymizePatientInfo: {
+      commandFn: actions.toggleIsShouldAnonymizePatientInfo,
     },
     arrowTextCallback: {
       commandFn: actions.arrowTextCallback,

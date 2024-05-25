@@ -6,7 +6,13 @@ import { ImageSliceData } from '@cornerstonejs/core/dist/esm/types';
 import { ViewportOverlay, useVisibilityPreferences } from '@ohif/ui';
 import { ServicesManager } from '@ohif/core';
 import { InstanceMetadata } from '@ohif/core/src/types';
-import { formatPN, formatDICOMDate, formatDICOMTime, formatNumberPrecision } from './utils';
+import {
+  formatPN,
+  formatDICOMDate,
+  formatDICOMTime,
+  formatNumberPrecision,
+  formatString,
+} from './utils';
 import { StackViewportData, VolumeViewportData } from '../../types/CornerstoneCacheService';
 
 import './CustomizableViewportOverlay.css';
@@ -28,6 +34,7 @@ interface OverlayItemProps {
     formatDate: (val) => string;
     formatTime: (val) => string;
     formatNumberPrecision: (val, number) => string;
+    formatString: (val: string, options?: { isAnonymized?: boolean }) => string;
   };
 
   // calculated values
@@ -63,7 +70,8 @@ function CustomizableViewportOverlay({
 }) {
   const { cornerstoneViewportService, customizationService, toolGroupService } =
     servicesManager.services;
-  const [{ isShownPatientInfo }] = useVisibilityPreferences();
+  const [{ isShownPatientInfo, isShouldAnonymizePatientInfo: isAnonymized }] =
+    useVisibilityPreferences();
   const [voi, setVOI] = useState({ windowCenter: null, windowWidth: null });
   const [scale, setScale] = useState(1);
   const { imageIndex } = imageSliceData;
@@ -174,6 +182,7 @@ function CustomizableViewportOverlay({
         customization: item,
         formatters: {
           formatPN,
+          formatString,
           formatDate: formatDICOMDate,
           formatTime: formatDICOMTime,
           formatNumberPrecision,
@@ -245,7 +254,10 @@ function CustomizableViewportOverlay({
     title: 'Patient Name',
     condition: ({ instance }) =>
       isShownPatientInfo && instance && instance.PatientName && instance.PatientName.Alphabetic,
-    contentF: ({ instance, formatters: { formatPN } }) => formatPN(instance.PatientName.Alphabetic),
+    contentF: ({ instance, formatters: { formatPN, formatString } }) => {
+      const formattedName = formatPN(instance.PatientName.Alphabetic);
+      return formatString(formattedName, { isAnonymized });
+    },
   };
 
   const patientIdItem = {
@@ -254,7 +266,8 @@ function CustomizableViewportOverlay({
     label: 'PatId:',
     title: 'Patient PID',
     condition: ({ instance }) => isShownPatientInfo && instance && instance.PatientID,
-    contentF: ({ instance }) => instance.PatientID,
+    contentF: ({ instance, formatters: { formatString } }) =>
+      formatString(instance.PatientID, { isAnonymized }),
   };
 
   const patientAgeItem = {

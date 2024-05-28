@@ -275,7 +275,7 @@ function CustomizableViewportOverlay({
     customizationType: 'ohif.overlayItem',
     label: 'Age:',
     title: 'Patient Age',
-    condition: ({ instance }) => instance && instance.PatientAge,
+    condition: ({ instance }) => isShownPatientInfo && instance && instance.PatientAge,
     contentF: ({ instance }) => instance.PatientAge,
   };
 
@@ -284,7 +284,7 @@ function CustomizableViewportOverlay({
     customizationType: 'ohif.overlayItem',
     label: 'Sex:',
     title: 'Patient Sex',
-    condition: ({ instance }) => instance && instance.PatientSex,
+    condition: ({ instance }) => isShownPatientInfo && instance && instance.PatientSex,
     contentF: ({ instance }) => instance.PatientSex,
   };
 

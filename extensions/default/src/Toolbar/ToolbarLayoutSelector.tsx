@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { LayoutSelector as OHIFLayoutSelector, ToolbarButton, LayoutPreset } from '@ohif/ui';
-import { ServicesManager } from '@ohif/core';
 
 export const defaultCommonPresets = [
   {
@@ -45,7 +44,7 @@ const _areSelectorsValid = (hp, displaySets, hangingProtocolService) => {
   );
 };
 
-const generateAdvancedPresets = ({ servicesManager }) => {
+const generateAdvancedPresets = ({ servicesManager }: withAppTypes) => {
   const { hangingProtocolService, viewportGridService, displaySetService } =
     servicesManager.services;
 
@@ -84,7 +83,11 @@ const generateAdvancedPresets = ({ servicesManager }) => {
     .filter(preset => preset !== null);
 };
 
-function ToolbarLayoutSelectorWithServices({ commandsManager, servicesManager, ...props }) {
+function ToolbarLayoutSelectorWithServices({
+  commandsManager,
+  servicesManager,
+  ...props
+}: withAppTypes) {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleMouseEnter = () => {
@@ -129,24 +132,32 @@ function LayoutSelector({
   servicesManager,
   tooltipDisabled,
   ...rest
-}) {
+}: withAppTypes) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const { customizationService } = servicesManager.services;
   const commonPresets = customizationService.get('commonPresets') || defaultCommonPresets;
   const advancedPresets =
     customizationService.get('advancedPresets') || generateAdvancedPresets({ servicesManager });
 
-  const closeOnOutsideClick = () => {
-    if (isOpen) {
+  const closeOnOutsideClick = event => {
+    if (isOpen && dropdownRef.current) {
       setIsOpen(false);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('click', closeOnOutsideClick);
+    if (!isOpen) {
+      return;
+    }
+
+    setTimeout(() => {
+      window.addEventListener('click', closeOnOutsideClick);
+    }, 0);
     return () => {
       window.removeEventListener('click', closeOnOutsideClick);
+      dropdownRef.current = null;
     };
   }, [isOpen]);
 
@@ -166,7 +177,10 @@ function LayoutSelector({
       disableToolTip={tooltipDisabled}
       dropdownContent={
         DropdownContent !== null && (
-          <div className="flex ">
+          <div
+            className="flex"
+            ref={dropdownRef}
+          >
             <div className="bg-secondary-dark flex flex-col gap-2.5 p-2">
               <div className="text-aqua-pale text-xs">Common</div>
 
@@ -225,7 +239,7 @@ LayoutSelector.propTypes = {
   rows: PropTypes.number,
   columns: PropTypes.number,
   onLayoutChange: PropTypes.func,
-  servicesManager: PropTypes.instanceOf(ServicesManager),
+  servicesManager: PropTypes.object.isRequired,
 };
 
 LayoutSelector.defaultProps = {

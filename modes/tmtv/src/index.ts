@@ -35,7 +35,7 @@ const extensionDependencies = {
   '@ohif/extension-tmtv': '^3.0.0',
 };
 
-let unsubscriptions = [];
+const unsubscriptions = [];
 function modeFactory({ modeConfiguration }) {
   return {
     // TODO: We're using this as a route segment
@@ -46,7 +46,7 @@ function modeFactory({ modeConfiguration }) {
     /**
      * Lifecycle hooks
      */
-    onModeEnter: ({ servicesManager, extensionManager, commandsManager }) => {
+    onModeEnter: ({ servicesManager, extensionManager, commandsManager }: withAppTypes) => {
       const {
         toolbarService,
         toolGroupService,
@@ -63,7 +63,7 @@ function modeFactory({ modeConfiguration }) {
       const { toolNames, Enums } = utilityModule.exports;
 
       // Init Default and SR ToolGroups
-      initToolGroups(toolNames, Enums, toolGroupService, commandsManager);
+      initToolGroups(toolNames, Enums, toolGroupService, commandsManager, null, servicesManager);
 
       const { unsubscribe } = toolGroupService.subscribe(
         toolGroupService.EVENTS.VIEWPORT_ADDED,
@@ -146,7 +146,7 @@ function modeFactory({ modeConfiguration }) {
         }
       );
     },
-    onModeExit: ({ servicesManager }) => {
+    onModeExit: ({ servicesManager }: withAppTypes) => {
       const {
         toolGroupService,
         syncGroupService,

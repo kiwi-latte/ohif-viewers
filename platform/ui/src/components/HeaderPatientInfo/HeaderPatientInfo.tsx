@@ -13,7 +13,7 @@ const formatWithEllipsis = (str, maxLength) => {
   return str;
 };
 
-function usePatientInfo(servicesManager) {
+function usePatientInfo(servicesManager: AppTypes.ServicesManager) {
   const { displaySetService } = servicesManager.services;
   const [{ isShouldAnonymizePatientInfo: isAnonymized }] = useVisibilityPreferences();
 
@@ -73,7 +73,7 @@ function usePatientInfo(servicesManager) {
   return { patientInfo, isMixedPatients };
 }
 
-function HeaderPatientInfo({ servicesManager, appConfig }) {
+function HeaderPatientInfo({ servicesManager, appConfig }: withAppTypes) {
   const initialExpandedState =
     appConfig.showPatientInfo === PatientInfoVisibility.VISIBLE ||
     appConfig.showPatientInfo === PatientInfoVisibility.VISIBLE_READONLY;

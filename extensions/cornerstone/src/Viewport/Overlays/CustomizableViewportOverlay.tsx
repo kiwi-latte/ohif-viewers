@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { metaData, Enums, utilities } from '@cornerstonejs/core';
 import { ImageSliceData } from '@cornerstonejs/core/dist/esm/types';
 import { ViewportOverlay, useVisibilityPreferences } from '@ohif/ui';
-import { ServicesManager } from '@ohif/core';
 import { InstanceMetadata } from '@ohif/core/src/types';
 import {
   formatPN,
@@ -25,7 +24,7 @@ interface OverlayItemProps {
   element: HTMLElement;
   viewportData: ViewportData;
   imageSliceData: ImageSliceData;
-  servicesManager: ServicesManager;
+  servicesManager: AppTypes.ServicesManager;
   viewportId: string;
   instance: InstanceMetadata;
   customization: any;
@@ -66,7 +65,7 @@ function CustomizableViewportOverlay({
   viewportData: ViewportData;
   imageSliceData: ImageSliceData;
   viewportId: string;
-  servicesManager: ServicesManager;
+  servicesManager: AppTypes.ServicesManager;
 }) {
   const { cornerstoneViewportService, customizationService, toolGroupService } =
     servicesManager.services;

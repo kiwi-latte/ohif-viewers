@@ -21,6 +21,9 @@ export function updateAuthServiceAndCleanUrl(
     }),
   });
 
+  // persist token to current browsing session
+  window.sessionStorage.setItem('pacs::token', token);
+
   // Create a URL object with the current location
   const urlObj = new URL(window.location.origin + window.location.pathname + location.search);
 

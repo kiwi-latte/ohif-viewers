@@ -67,7 +67,7 @@ export default function ModeRoute({
   const { extensions, sopClassHandlers, hotkeys: hotkeyObj, hangingProtocol } = mode;
 
   const runTimeHangingProtocolId = lowerCaseSearchParams.get('hangingprotocolid');
-  const token = lowerCaseSearchParams.get('token');
+  const token = lowerCaseSearchParams.get('token') ?? window.sessionStorage.getItem('pacs::token');
 
   if (token) {
     updateAuthServiceAndCleanUrl(token, location, userAuthenticationService);

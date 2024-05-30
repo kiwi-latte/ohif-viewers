@@ -97,10 +97,10 @@ function modeFactory({ modeConfiguration }) {
       toolbarService.createButtonSection('primary', [
         'Layout',
         'EndLayoutTools',
+        'StackScroll',
         'Pan',
         'Zoom',
         'WindowLevel',
-        'StackScroll',
         'TrackballRotate',
         'Crosshairs',
         'EndMoveTools',

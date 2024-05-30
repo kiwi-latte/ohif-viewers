@@ -27,18 +27,25 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
   const preferencesPanel = () => {
     return (
       <>
-        <PanelSection title="Series Layout">
-          <PanelLayoutSettings
-            commandsManager={commandsManager}
-            servicesManager={servicesManager}
-          />
-        </PanelSection>
-        <PanelSection title="Image Tools">
-          <PanelImageTools
-            commandsManager={commandsManager}
-            servicesManager={servicesManager}
-          />
-        </PanelSection>
+        <div>
+          <PanelSection title="Series Layout">
+            <PanelLayoutSettings
+              commandsManager={commandsManager}
+              servicesManager={servicesManager}
+            />
+          </PanelSection>
+        </div>
+        <div>
+          <PanelSection
+            title="Image Tools"
+            childrenClassName="overflow-visible"
+          >
+            <PanelImageTools
+              commandsManager={commandsManager}
+              servicesManager={servicesManager}
+            />
+          </PanelSection>
+        </div>
       </>
     );
   };

@@ -115,6 +115,7 @@ function modeFactory({ modeConfiguration }) {
         'RotateLeft',
         'FlipHorizontal',
         'FlipVertical',
+        'Invert',
         'Reset',
         'EndTransformTools',
         'Cine',

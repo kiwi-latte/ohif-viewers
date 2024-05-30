@@ -19,6 +19,7 @@ const ToolbarButton = ({
   disabledText,
   size,
   toolTipClassName,
+  toolTipPosition,
   disableToolTip = false,
   ...rest
   //
@@ -38,6 +39,7 @@ const ToolbarButton = ({
     <div key={id}>
       <Tooltip
         isSticky={shouldShowDropdown}
+        position={toolTipPosition}
         content={shouldShowDropdown ? dropdownContent : label}
         secondaryContent={disabled ? disabledText : null}
         tight={shouldShowDropdown}
@@ -81,6 +83,7 @@ ToolbarButton.propTypes = {
   dropdownContent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   size: PropTypes.string,
   toolTipClassName: PropTypes.string,
+  toolTipPosition: Tooltip.propTypes.position,
   disableToolTip: PropTypes.bool,
   disabled: PropTypes.bool,
 };

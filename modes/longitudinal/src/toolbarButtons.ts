@@ -130,6 +130,16 @@ const toolbarButtons: Button[] = [
     },
   },
   {
+    id: 'Invert',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-invert',
+      label: 'Invert',
+      commands: 'invertViewport',
+      evaluate: 'evaluate.viewportProperties.toggle',
+    },
+  },
+  {
     id: 'Reset',
     uiType: 'ohif.radioGroup',
     props: {

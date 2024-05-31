@@ -2,7 +2,7 @@ import React from 'react';
 import {
   WrappedPanelStudyBrowser,
   PanelMeasurementTable,
-  PanelImageTools,
+  PanelTools,
   PanelLayoutSettings,
 } from './Panels';
 import i18n from 'i18next';
@@ -36,11 +36,27 @@ function getPanelModule({ commandsManager, extensionManager, servicesManager }) 
           </PanelSection>
         </div>
         <div>
-          <PanelSection
-            title="Image Tools"
-            childrenClassName="overflow-visible"
-          >
-            <PanelImageTools
+          <PanelSection title="Image Tools">
+            <PanelTools
+              buttonSection="sidebar-image-tools"
+              commandsManager={commandsManager}
+              servicesManager={servicesManager}
+            />
+          </PanelSection>
+        </div>
+        <div>
+          <PanelSection title="Tools">
+            <PanelTools
+              buttonSection="sidebar-other-tools"
+              commandsManager={commandsManager}
+              servicesManager={servicesManager}
+            />
+          </PanelSection>
+        </div>
+        <div>
+          <PanelSection title="Information">
+            <PanelTools
+              buttonSection="sidebar-info-tools"
               commandsManager={commandsManager}
               servicesManager={servicesManager}
             />

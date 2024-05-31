@@ -2,7 +2,7 @@ import PanelStudyBrowser from './PanelStudyBrowser';
 import WrappedPanelStudyBrowser from './WrappedPanelStudyBrowser';
 import PanelMeasurementTable from './PanelMeasurementTable';
 import PanelLayoutSettings from './PanelLayoutSettings';
-import PanelImageTools from './PanelImageTools';
+import PanelTools from './PanelTools';
 import createReportDialogPrompt from './createReportDialogPrompt';
 
 export {
@@ -10,6 +10,6 @@ export {
   WrappedPanelStudyBrowser,
   PanelMeasurementTable,
   PanelLayoutSettings,
-  PanelImageTools,
+  PanelTools,
   createReportDialogPrompt,
 };

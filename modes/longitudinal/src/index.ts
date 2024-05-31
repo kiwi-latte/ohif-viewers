@@ -3,6 +3,7 @@ import i18n from 'i18next';
 import { id } from './id';
 import initToolGroups from './initToolGroups';
 import toolbarButtons from './toolbarButtons';
+import { expandSplitButton } from './utils';
 
 // Allow this mode by excluding non-imaging modalities such as SR, SEG
 // Also, SM is not a simple imaging modalities, so exclude it.
@@ -93,7 +94,14 @@ function modeFactory({ modeConfiguration }) {
       // Init Default and SR ToolGroups
       initToolGroups(extensionManager, toolGroupService, commandsManager, this.labelConfig);
 
-      toolbarService.addButtons([...toolbarButtons]);
+      toolbarService.addButtons([
+        ...toolbarButtons,
+        ...toolbarButtons
+          .filter(button => button.uiType === 'ohif.splitButton')
+          .map(expandSplitButton)
+          .flat(),
+      ]);
+
       toolbarService.createButtonSection('primary', [
         'Layout',
         'EndLayoutTools',
@@ -122,6 +130,31 @@ function modeFactory({ modeConfiguration }) {
         'Capture',
         'MoreTools',
         'InfoTools',
+      ]);
+
+      toolbarService.createButtonSection('sidebar-image-tools', [
+        'RotateRight',
+        'RotateLeft',
+        'FlipHorizontal',
+        'FlipVertical',
+        'Invert',
+        'Reset',
+      ]);
+
+      toolbarService.createButtonSection('sidebar-other-tools', [
+        'Cine',
+        'Capture',
+        'MoreTools-Magnify',
+        'MoreTools-ImageSliceSync',
+        'MoreTools-ReferenceLines',
+        'MoreTools-ImageOverlayViewer',
+        'MoreTools-UltrasoundDirectionalTool',
+      ]);
+
+      toolbarService.createButtonSection('sidebar-info-tools', [
+        'InfoTools-TagBrowser',
+        'InfoTools-PatientInfo',
+        'InfoTools-AnonyInfo',
       ]);
 
       customizationService.addModeCustomizations([

@@ -42,10 +42,15 @@ export default function PanelImageTools({ servicesManager }): React.FunctionComp
             />
           );
 
+          const isSplitButton = !!componentProps?.groupId;
+          const className = isSplitButton
+            ? 'flex justify-center mr-2'
+            : 'flex flex-1 justify-center';
+
           return (
             <div
               key={id}
-              className="flex-1"
+              className={className}
             >
               {tool}
             </div>

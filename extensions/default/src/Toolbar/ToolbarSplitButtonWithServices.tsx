@@ -10,6 +10,7 @@ function ToolbarSplitButtonWithServices({
   renderer,
   onInteraction,
   servicesManager,
+  toolTipPosition,
 }: withAppTypes) {
   const { toolbarService } = servicesManager?.services;
 
@@ -37,6 +38,7 @@ function ToolbarSplitButtonWithServices({
 
   return (
     <SplitButton
+      toolTipPosition={toolTipPosition}
       primary={primary}
       secondary={secondary}
       items={getSplitButtonItems(items)}
@@ -85,6 +87,7 @@ ToolbarSplitButtonWithServices.propTypes = {
       toolbarService: PropTypes.object,
     }),
   }),
+  toolTipPosition: SplitButton.propTypes.toolTipPosition,
 };
 
 ToolbarSplitButtonWithServices.defaultProps = {

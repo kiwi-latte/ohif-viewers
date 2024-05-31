@@ -94,6 +94,7 @@ const SplitButton = ({
   renderer,
   onInteraction,
   Component,
+  toolTipPosition,
 }) => {
   const { t } = useTranslation('Buttons');
   const [state, setState] = useState({ isHovering: false, isExpanded: false });
@@ -110,6 +111,9 @@ const SplitButton = ({
     }),
     primary.className
   );
+
+  console.log('toolTipPosition', toolTipPosition);
+
   return (
     <OutsideClickHandler
       onOutsideClick={collapse}
@@ -131,6 +135,7 @@ const SplitButton = ({
                 key={primary.id}
                 {...primary}
                 onInteraction={onInteraction}
+                toolTipPosition={toolTipPosition}
                 rounded="none"
                 className={primaryClassNames}
                 data-tool={primary.id}
@@ -146,6 +151,7 @@ const SplitButton = ({
                 isDisabled={state.isExpanded || !secondary.tooltip}
                 content={secondary.tooltip}
                 className="h-full"
+                position={toolTipPosition}
               >
                 <Icon
                   name={secondary.icon}
@@ -181,6 +187,7 @@ SplitButton.propTypes = {
   onInteraction: PropTypes.func.isRequired,
   Component: PropTypes.elementType,
   interactionType: PropTypes.oneOf(['action', 'tool', 'toggle']),
+  toolTipPosition: Tooltip.propTypes.position,
 };
 
 SplitButton.defaultProps = {

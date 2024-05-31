@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { utils } from '@ohif/core';
-import { DragAndDropProvider, ImageViewerProvider } from '@ohif/ui';
+import { DragAndDropProvider, ImageViewerProvider, LoadingIndicatorProgress } from '@ohif/ui';
 import { useSearchParams } from '@hooks';
 import { useAppConfig } from '@state';
 import ViewportGrid from '@components/ViewportGrid';
@@ -22,6 +22,8 @@ export default function ModeRoute({
   commandsManager,
   hotkeysManager,
 }: withAppTypes) {
+  console.log(dataSourceName);
+
   const [appConfig] = useAppConfig();
 
   // Parse route params/querystring
@@ -330,6 +332,14 @@ export default function ModeRoute({
   ]);
 
   if (!studyInstanceUIDs || !layoutTemplateData.current || !ExtensionDependenciesLoaded) {
+    if (dataSourceName === 'dicomjson') {
+      return (
+        <LoadingIndicatorProgress
+          className="h-full w-full"
+          textBlock={<p className="mt-2 text-base text-white">Fetching study metadata...</p>}
+        />
+      );
+    }
     return null;
   }
 

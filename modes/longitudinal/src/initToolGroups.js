@@ -14,7 +14,7 @@ function initDefaultToolGroup(
   const tools = {
     active: [
       {
-        toolName: toolNames.StackScroll,
+        toolName: toolNames.WindowLevel,
         bindings: [{ mouseButton: Enums.MouseBindings.Primary }],
       },
       {
@@ -59,7 +59,7 @@ function initDefaultToolGroup(
       { toolName: toolNames.EllipticalROI },
       { toolName: toolNames.CircleROI },
       { toolName: toolNames.RectangleROI },
-      { toolName: toolNames.WindowLevel },
+      { toolName: toolNames.StackScroll },
       { toolName: toolNames.Angle },
       { toolName: toolNames.CobbAngle },
       { toolName: toolNames.Magnify },
@@ -171,7 +171,7 @@ function initMPRToolGroup(extensionManager, toolGroupService, commandsManager, m
   const tools = {
     active: [
       {
-        toolName: toolNames.StackScroll,
+        toolName: toolNames.WindowLevel,
         bindings: [{ mouseButton: Enums.MouseBindings.Primary }],
       },
       {
@@ -216,7 +216,7 @@ function initMPRToolGroup(extensionManager, toolGroupService, commandsManager, m
       { toolName: toolNames.EllipticalROI },
       { toolName: toolNames.CircleROI },
       { toolName: toolNames.RectangleROI },
-      { toolName: toolNames.WindowLevel },
+      { toolName: toolNames.StackScroll },
       { toolName: toolNames.Angle },
       { toolName: toolNames.CobbAngle },
       { toolName: toolNames.PlanarFreehandROI },

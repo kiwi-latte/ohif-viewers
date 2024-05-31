@@ -22,8 +22,6 @@ export default function ModeRoute({
   commandsManager,
   hotkeysManager,
 }: withAppTypes) {
-  console.log(dataSourceName);
-
   const [appConfig] = useAppConfig();
 
   // Parse route params/querystring
@@ -332,15 +330,12 @@ export default function ModeRoute({
   ]);
 
   if (!studyInstanceUIDs || !layoutTemplateData.current || !ExtensionDependenciesLoaded) {
-    if (dataSourceName === 'dicomjson') {
-      return (
-        <LoadingIndicatorProgress
-          className="h-full w-full"
-          textBlock={<p className="mt-2 text-base text-white">Fetching study metadata...</p>}
-        />
-      );
-    }
-    return null;
+    return (
+      <LoadingIndicatorProgress
+        className="h-full w-full"
+        textBlock={<p className="mt-2 text-base text-white">Getting study info...</p>}
+      />
+    );
   }
 
   const ViewportGridWithDataSource = props => {

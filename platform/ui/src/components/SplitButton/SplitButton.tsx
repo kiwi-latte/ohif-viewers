@@ -112,8 +112,6 @@ const SplitButton = ({
     primary.className
   );
 
-  console.log('toolTipPosition', toolTipPosition);
-
   return (
     <OutsideClickHandler
       onOutsideClick={collapse}

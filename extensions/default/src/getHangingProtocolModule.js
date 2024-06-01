@@ -1,5 +1,6 @@
 import hpMNGrid from './hpMNGrid';
 import hpMNCompare from './hpCompare';
+import hpSplitGrid from './hpSplitGrid';
 
 const defaultProtocol = {
   id: 'default',
@@ -104,6 +105,11 @@ function getHangingProtocolModule() {
     {
       name: defaultProtocol.id,
       protocol: defaultProtocol,
+    },
+    // Create a 2x1 hanging protocol available by default
+    {
+      name: hpSplitGrid.id,
+      protocol: hpSplitGrid,
     },
     // Create a MxN hanging protocol available by default
     {

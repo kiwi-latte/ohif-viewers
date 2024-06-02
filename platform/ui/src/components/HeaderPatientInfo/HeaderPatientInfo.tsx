@@ -52,7 +52,12 @@ function usePatientInfo(servicesManager: AppTypes.ServicesManager) {
       PatientName: isAnonymized
         ? '***'
         : instance.PatientName
-          ? formatPN(instance.PatientName.Alphabetic)
+          ? Array.isArray(instance.PatientName)
+            ? (() => {
+                const patientName = instance.PatientName.find(name => !!name.Alphabetic);
+                return patientName ? formatPN(patientName.Alphabetic) : null;
+              })()
+            : formatPN(instance.PatientName.Alphabetic)
           : null,
       PatientSex: instance.PatientSex || null,
       PatientDOB: formatDate(instance.PatientBirthDate) || null,

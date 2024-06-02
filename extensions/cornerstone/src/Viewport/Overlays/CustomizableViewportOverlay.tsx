@@ -251,10 +251,21 @@ function CustomizableViewportOverlay({
     customizationType: 'ohif.overlayItem',
     label: 'Name:',
     title: 'Patient Name',
-    condition: ({ instance }) =>
-      isShownPatientInfo && instance && instance.PatientName && instance.PatientName.Alphabetic,
+    condition: ({ instance }) => {
+      const patientNameOrArray = isShownPatientInfo && instance && instance.PatientName;
+      if (!patientNameOrArray) {
+        return false;
+      }
+
+      return Array.isArray(patientNameOrArray)
+        ? patientNameOrArray.some(name => !!name.Alphabetic)
+        : instance.PatientName.Alphabetic;
+    },
     contentF: ({ instance, formatters: { formatPN, formatString } }) => {
-      const formattedName = formatPN(instance.PatientName.Alphabetic);
+      const patientName = Array.isArray(instance.PatientName)
+        ? instance.PatientName.find(name => !!name.Alphabetic)
+        : instance.PatientName;
+      const formattedName = formatPN(patientName.Alphabetic);
       return formatString(formattedName, { isAnonymized });
     },
   };

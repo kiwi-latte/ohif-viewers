@@ -1,9 +1,18 @@
 import { DicomMetadataStore, IWebApiDataSource } from '@ohif/core';
 import OHIF from '@ohif/core';
 import { decompressFromEncodedURIComponent } from 'lz-string';
+import dcmjs from 'dcmjs';
 
 import getImageId from '../DicomWebDataSource/utils/getImageId';
 import getDirectURL from '../utils/getDirectURL';
+
+const { DicomMetaDictionary, DicomDict } = dcmjs.data;
+
+const { denaturalizeDataset } = DicomMetaDictionary;
+
+const ImplementationClassUID = '2.25.270695996825855179949881587723571202391.2.0.0';
+const ImplementationVersionName = 'OHIF-VIEWER-2.0.0';
+const EXPLICIT_VR_LITTLE_ENDIAN = '1.2.840.10008.1.2.1';
 
 const metadataProvider = OHIF.classes.MetadataProvider;
 
@@ -61,6 +70,22 @@ const findStudies = (key, value) => {
 
 function getUrl(query) {
   return query.get('id') ? decompressFromEncodedURIComponent(query.get('id')) : query.get('url');
+}
+
+function storeInstance(buffer) {
+  const dicomDict = dcmjs.data.DicomMessage.readFile(buffer);
+  const instance = dcmjs.data.DicomMetaDictionary.naturalizeDataset(dicomDict.dict);
+  const { StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID } = instance;
+
+  const blob = new Blob([buffer], { type: 'application/dicom' });
+  const objectUrl = URL.createObjectURL(blob);
+  window.location.assign(objectUrl);
+
+  // TODO: Call API to upload SR Dicom file
+  window.prompt(
+    'SR Dicom file should be saved at:',
+    `${StudyInstanceUID}/${SeriesInstanceUID}/${SOPInstanceUID}.dcm`
+  );
 }
 
 function createDicomJSONApi(dicomJsonConfig, servicesManager) {
@@ -240,9 +265,37 @@ function createDicomJSONApi(dicomJsonConfig, servicesManager) {
       },
     },
     store: {
-      dicom: () => {
-        console.warn(' DICOMJson store dicom not implemented');
+      dicom: async (dataset, _request, dicomDict) => {
+        if (dataset instanceof ArrayBuffer) {
+          await storeInstance(dataset);
+        } else {
+          let effectiveDicomDict = dicomDict;
+
+          if (!dicomDict) {
+            const meta = {
+              FileMetaInformationVersion: dataset._meta?.FileMetaInformationVersion?.Value,
+              MediaStorageSOPClassUID: dataset.SOPClassUID,
+              MediaStorageSOPInstanceUID: dataset.SOPInstanceUID,
+              TransferSyntaxUID: EXPLICIT_VR_LITTLE_ENDIAN,
+              ImplementationClassUID,
+              ImplementationVersionName,
+            };
+
+            const denaturalized = denaturalizeDataset(meta);
+            const defaultDicomDict = new DicomDict(denaturalized);
+            defaultDicomDict.dict = denaturalizeDataset(dataset);
+
+            effectiveDicomDict = defaultDicomDict;
+          }
+
+          const part10Buffer = effectiveDicomDict.write();
+          await storeInstance(part10Buffer);
+        }
       },
+    },
+    deleteStudyMetadataPromise(...args) {
+      console.log('deleteStudyMetadataPromise', args);
+      console.log('deleteStudyMetadataPromise not implemented');
     },
     getImageIdsForDisplaySet(displaySet) {
       const images = displaySet.images;

@@ -306,7 +306,16 @@ class ViewportInfo {
   }
 
   public getDisplayArea(): Types.DisplayArea {
-    return this.viewportOptions.displayArea;
+    return (
+      this.viewportOptions.displayArea || {
+        storeAsInitialCamera: true,
+        imageArea: [1, 1],
+        imageCanvasPoint: {
+          imagePoint: [0.5, 0.5],
+          canvasPoint: [0.5, 0.5],
+        },
+      }
+    );
   }
 
   public getInitialImageOptions(): InitialImageOptions {

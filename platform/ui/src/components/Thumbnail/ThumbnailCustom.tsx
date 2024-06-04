@@ -62,12 +62,14 @@ const ThumbnailCustom = ({
       <div ref={drag}>
         <div
           className={classnames(
-            'h-26 relative flex flex-1 items-center justify-center overflow-hidden rounded-md bg-black text-base text-white',
+            'h-26 relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-md bg-black text-base text-white',
             isActive
               ? 'border-primary-light border-2'
               : 'border-secondary-light border hover:border-blue-300'
           )}
         >
+          <div className="w-[98px] truncate break-all p-1 text-xs text-white">{description}</div>
+
           {imageSrc ? (
             <img
               src={imageSrc}
@@ -79,31 +81,26 @@ const ThumbnailCustom = ({
             <div>{imageAltText}</div>
           )}
 
-          <div className="absolute top-0 left-0 flex h-full w-full flex-col justify-between">
-            <div className="bg-overlay truncate break-all p-1 text-xs text-white">
-              {description}
-            </div>
-            <div className="flex flex-col gap-2 text-xs text-blue-300">
-              <DisplaySetMessageListTooltip
-                position="left"
-                messages={messages}
-                id={`display-set-tooltip-${displaySetInstanceUID}`}
-              />
+          <div className="absolute left-1">
+            <DisplaySetMessageListTooltip
+              position="left"
+              messages={messages}
+              id={`display-set-tooltip-${displaySetInstanceUID}`}
+            />
+          </div>
 
-              <div className="bg-overlay flex items-center justify-between p-1">
-                <p>
-                  <Icon
-                    className="mr-2 inline-block w-3"
-                    name={countIcon || 'group-layers'}
-                  />
-                  <span>{numInstances}</span>
-                </p>
-                <p>
-                  <span className="font-bold">S: </span>
-                  <span>{seriesNumber}</span>
-                </p>
-              </div>
-            </div>
+          <div className="flex w-full items-center justify-between p-1 text-xs text-blue-300">
+            <p>
+              <Icon
+                className="mr-2 inline-block w-3"
+                name={countIcon || 'group-layers'}
+              />
+              <span>{numInstances}</span>
+            </p>
+            <p>
+              <span className="font-bold">S: </span>
+              <span>{seriesNumber}</span>
+            </p>
           </div>
         </div>
       </div>

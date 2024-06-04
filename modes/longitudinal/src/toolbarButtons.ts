@@ -279,6 +279,15 @@ const toolbarButtons: Button[] = [
     },
   },
   {
+    id: 'ClearMeasurements',
+    uiType: 'ohif.radioGroup',
+    props: {
+      icon: 'tool-clear-measurements',
+      label: 'Clear Measurements',
+      commands: 'clearMeasurements',
+    },
+  },
+  {
     id: 'RotateRight',
     uiType: 'ohif.radioGroup',
     props: {

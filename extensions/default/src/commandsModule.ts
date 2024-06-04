@@ -94,7 +94,7 @@ const commandsModule = ({
       });
     },
     clearMeasurements: () => {
-      measurementService.clear();
+      measurementService.clearMeasurements();
     },
 
     /**

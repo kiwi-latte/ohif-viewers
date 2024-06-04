@@ -131,6 +131,7 @@ import toolPaintFill from './../../assets/icons/tool-paint-fill.svg';
 import toolInfo from './../../assets/icons/tool-info.svg';
 import toolPatientInfo from './../../assets/icons/tool-patient-info.svg';
 import toolPatientInfoAnony from './../../assets/icons/tool-patient-info-anony.svg';
+import toolClearMeasurements from './../../assets/icons/tool-clear-measurements-2.svg';
 import editPatient from './../../assets/icons/edit-patient.svg';
 import panelGroupMore from './../../assets/icons/panel-group-more.svg';
 import panelGroupOpenClose from './../../assets/icons/panel-group-open-close.svg';
@@ -346,6 +347,7 @@ const ICONS = {
   'tool-info': toolInfo,
   'tool-patient-info': toolPatientInfo,
   'tool-patient-info-anony': toolPatientInfoAnony,
+  'tool-clear-measurements': toolClearMeasurements,
   'edit-patient': editPatient,
   'icon-mpr': iconMPR,
   'icon-next-inactive': iconNextInactive,

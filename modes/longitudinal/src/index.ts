@@ -117,6 +117,7 @@ function modeFactory({ modeConfiguration }) {
         'EllipticalROI',
         'RectangleROI',
         'ArrowAnnotate',
+        'ClearMeasurements',
         'OtherMeasurementTools',
         'EndMeasurementTools',
         'RotateRight',

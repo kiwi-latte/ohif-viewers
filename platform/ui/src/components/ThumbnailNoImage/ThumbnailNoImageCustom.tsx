@@ -85,6 +85,7 @@ const ThumbnailNoImageCustom = ({
             <div className="truncate break-all text-sm text-white">{description}</div>
             <div className="flex gap-2">
               <DisplaySetMessageListTooltip
+                position="left"
                 messages={messages}
                 id={`display-set-tooltip-${displaySetInstanceUID}`}
               />

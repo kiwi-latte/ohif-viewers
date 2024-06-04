@@ -1,3 +1,4 @@
+import { split2D } from './hps/split2D';
 import { fourUp } from './hps/fourUp';
 import { main3D } from './hps/main3D';
 import { mpr } from './hps/mpr';
@@ -8,6 +9,10 @@ import { primaryAxial } from './hps/primaryAxial';
 
 function getHangingProtocolModule() {
   return [
+    {
+      name: split2D.id,
+      protocol: split2D,
+    },
     {
       name: mpr.id,
       protocol: mpr,

@@ -1,15 +1,19 @@
 import { Types } from '@ohif/core';
 
-/**
- * This hanging protocol can be activated on the primary mode by directly
- * referencing it in a URL or by directly including it within a mode, e.g.:
- * `&hangingProtocolId=@ohif/mnGrid` added to the viewer URL
- * It is not included in the viewer mode by default.
- */
-const hpSplitGrid: Types.HangingProtocol.Protocol = {
-  id: '@ohif/hpSplitGrid',
+export const split2D: Types.HangingProtocol.Protocol = {
+  id: 'split2D',
+  name: '2D',
   description: 'Has various hanging protocol grid layouts',
-  name: '2x1',
+  locked: true,
+  icon: 'layout-common-1x2',
+  isPreset: true,
+  createdDate: '2021-02-23',
+  modifiedDate: '2023-08-15',
+  availableTo: {},
+  editableBy: {},
+  numberOfPriorsReferenced: -1,
+  imageLoadStrategy: 'default',
+  callbacks: {},
   protocolMatchingRules: [
     {
       id: 'OneOrMoreSeries',
@@ -59,7 +63,7 @@ const hpSplitGrid: Types.HangingProtocol.Protocol = {
   stages: [
     // A 2x1 stage
     {
-      id: '2x1',
+      name: '2x1',
       requiredViewports: 1,
       preferredViewports: 2,
       stageActivation: {
@@ -103,7 +107,7 @@ const hpSplitGrid: Types.HangingProtocol.Protocol = {
 
     // A 1x1 stage - should be automatically activated if there is only 1 viewable instance
     {
-      id: '1x1',
+      name: '1x1',
       requiredViewports: 1,
       preferredViewports: 1,
       stageActivation: {
@@ -133,7 +137,4 @@ const hpSplitGrid: Types.HangingProtocol.Protocol = {
       ],
     },
   ],
-  numberOfPriorsReferenced: -1,
 };
-
-export default hpSplitGrid;

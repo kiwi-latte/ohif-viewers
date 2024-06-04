@@ -30,6 +30,11 @@ export default function getImageId({ instance, frame, config, thumbnail = false 
   }
 
   if (instance.url) {
+    if (frame !== undefined) {
+      const url = new URL(instance.url);
+      url.searchParams.set('frame', frame);
+      return url.toString();
+    }
     return instance.url;
   }
 

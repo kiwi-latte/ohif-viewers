@@ -68,7 +68,7 @@ const ThumbnailCustom = ({
               : 'border-secondary-light border hover:border-blue-300'
           )}
         >
-          <div className="w-[98px] truncate break-all p-1 text-xs text-white">{description}</div>
+          <div className="w-[80px] truncate break-all p-1 text-xs text-white">{description}</div>
 
           {imageSrc ? (
             <img

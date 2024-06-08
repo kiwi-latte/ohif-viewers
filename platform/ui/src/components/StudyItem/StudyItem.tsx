@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '../Icon';
+import Button from '../Button';
 
 const baseClasses =
   'first:border-0 border-t border-secondary-light cursor-pointer select-none outline-none';
@@ -16,8 +17,25 @@ const StudyItem = ({
   trackedSeries,
   isActive,
   onClick,
+  measurementService,
 }) => {
   const { t } = useTranslation('StudyItem');
+
+  const reload = () => {
+    const measurements = measurementService.getMeasurements();
+    if (measurements.length > 0) {
+      const isConfirmed = window.confirm(
+        'You have unsaved measurements/ findings. Are you sure you want to reload?'
+      );
+
+      if (!isConfirmed) {
+        return;
+      }
+    }
+
+    window.location.reload();
+  };
+
   return (
     <div
       className={classnames(
@@ -29,11 +47,25 @@ const StudyItem = ({
       role="button"
       tabIndex="0"
     >
-      <div className="flex flex-col pt-2 pb-2 text-center">
+      <div className="flex flex-col items-center pt-2 pb-2 text-center">
         <div className="truncate text-sm text-white">{date}</div>
         <div className="text-sm text-blue-300">{modalities}</div>
         <div className="break-words text-sm text-blue-300">{description}</div>
         <div className="text-sm text-blue-300">{numInstances} instances</div>
+        <Button
+          size="small"
+          className="mt-2 w-min"
+          onClick={e => {
+            e.stopPropagation();
+            reload();
+          }}
+        >
+          <Icon
+            name="tool-reset"
+            className="h-5 w-5"
+          />
+          Reload
+        </Button>
       </div>
       {!!trackedSeries && (
         <div className="flex-2 flex">
@@ -65,6 +97,12 @@ StudyItem.propTypes = {
   trackedSeries: PropTypes.number,
   isActive: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
+  measurementService: PropTypes.shape({
+    getMeasurements: PropTypes.func.isRequired,
+    subscribe: PropTypes.func.isRequired,
+    EVENTS: PropTypes.object.isRequired,
+    VALUE_TYPES: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 export default StudyItem;

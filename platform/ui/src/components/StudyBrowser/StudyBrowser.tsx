@@ -32,7 +32,7 @@ const StudyBrowser = ({
   servicesManager,
 }: withAppTypes) => {
   const { t } = useTranslation('StudyBrowser');
-  const { customizationService } = servicesManager?.services || {};
+  const { customizationService, measurementService } = servicesManager?.services || {};
 
   const getTabContent = () => {
     const tabData = tabs.find(tab => tab.name === activeTabName);
@@ -52,6 +52,7 @@ const StudyBrowser = ({
                 onClickStudy(studyInstanceUid);
               }}
               data-cy="thumbnail-list"
+              measurementService={measurementService}
             />
             {isExpanded && displaySets && (
               <ThumbnailList

@@ -3,7 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
-import { ErrorBoundary, UserPreferences, AboutModal, Header, useModal } from '@ohif/ui';
+import {
+  ErrorBoundary,
+  UserPreferences,
+  AboutModal,
+  CustomHeader as Header,
+  useModal,
+} from '@ohif/ui';
 import i18n from '@ohif/i18n';
 import { hotkeys } from '@ohif/core';
 import { Toolbar } from '../Toolbar/Toolbar';

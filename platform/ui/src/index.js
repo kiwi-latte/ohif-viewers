@@ -39,6 +39,7 @@ export {
   AllInOneMenu,
   HotkeyField,
   Header,
+  CustomHeader,
   UserPreferences,
   HotkeysPreferences,
   Button,

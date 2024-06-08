@@ -175,6 +175,7 @@ function LayoutSelector({
       className={className}
       rounded={rest.rounded}
       disableToolTip={tooltipDisabled}
+      toolTipPosition="bottom-left"
       dropdownContent={
         DropdownContent !== null && (
           <div

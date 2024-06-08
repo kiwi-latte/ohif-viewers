@@ -55,7 +55,7 @@ const classes = {
       baseClasses.Separator,
       isHovering || isExpanded || primary.isActive ? 'border-transparent' : 'border-primary-active'
     ),
-  Content: ({ isExpanded }) => classNames(baseClasses.Content, isExpanded ? 'block' : 'hidden'),
+  Content: ({ isExpanded }) => classNames(/*baseClasses.Content,*/ isExpanded ? 'block' : 'hidden'),
 };
 
 const DefaultListItemRenderer = props => {
@@ -112,6 +112,19 @@ const SplitButton = ({
     primary.className
   );
 
+  const listMenuElement = (
+    <div
+      className={classes.Content({ ...state })}
+      data-cy={`${groupId}-list-menu`}
+    >
+      <ListMenu
+        items={items}
+        onClick={collapse}
+        renderer={args => listItemRenderer({ ...args, t })}
+      />
+    </div>
+  );
+
   return (
     <OutsideClickHandler
       onOutsideClick={collapse}
@@ -141,13 +154,16 @@ const SplitButton = ({
               />
             </div>
             <div
+              key={Number(state.isExpanded)}
               className={classes.Secondary({ ...state, primary })}
               onClick={toggleExpanded}
               data-cy={`${groupId}-split-button-secondary`}
             >
               <Tooltip
-                isDisabled={state.isExpanded || !secondary.tooltip}
-                content={secondary.tooltip}
+                isDisabled={!secondary.tooltip}
+                isSticky={state.isExpanded}
+                tight={state.isExpanded}
+                content={state.isExpanded ? listMenuElement : secondary.tooltip}
                 className="h-full"
                 position={toolTipPosition}
               >
@@ -158,16 +174,6 @@ const SplitButton = ({
               </Tooltip>
             </div>
           </div>
-        </div>
-        <div
-          className={classes.Content({ ...state })}
-          data-cy={`${groupId}-list-menu`}
-        >
-          <ListMenu
-            items={items}
-            onClick={collapse}
-            renderer={args => listItemRenderer({ ...args, t })}
-          />
         </div>
       </div>
     </OutsideClickHandler>

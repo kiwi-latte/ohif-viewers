@@ -108,7 +108,14 @@ const ViewportDownloadForm = ({
         setUploadState('error');
         setTimeout(() => setUploadState('idle'), 2000);
       })
-      .then(url => navigator.clipboard.writeText(url).finally(() => url))
+      .then(url => {
+        try {
+          const promise = navigator.clipboard.writeText(url);
+          return promise;
+        } catch {
+          return Promise.reject(url);
+        }
+      })
       .then(() => {
         setUploadState('success');
         setTimeout(() => setUploadState('idle'), 2000);

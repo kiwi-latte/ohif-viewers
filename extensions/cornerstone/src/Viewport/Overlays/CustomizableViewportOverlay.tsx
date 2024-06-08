@@ -298,6 +298,47 @@ function CustomizableViewportOverlay({
     contentF: ({ instance }) => instance.PatientSex,
   };
 
+  const repetitionTimeItem = {
+    id: 'RepetitionTime',
+    customizationType: 'ohif.overlayItem',
+    label: 'TR:',
+    title: 'Repetition time',
+    condition: ({ instance }) => instance && instance.RepetitionTime,
+    contentF: ({ instance, formatters: { formatNumberPrecision } }) =>
+      formatNumberPrecision(instance.RepetitionTime, 1),
+  };
+
+  const fieldStrengthAndSliceThicknessItem = {
+    id: 'FieldStrengthAndSliceThickness',
+    customizationType: 'ohif.overlayItem',
+    label: '',
+    title: 'Field strength and slice thickness',
+    condition: ({ instance }) =>
+      (instance && instance.MagneticFieldStrength) || (instance && instance.SliceThickness),
+    contentF: ({ instance, formatters: { formatNumberPrecision } }) => {
+      const values = [];
+
+      if (instance.MagneticFieldStrength) {
+        values.push(`FS: ${formatNumberPrecision(instance.MagneticFieldStrength, 2)}`);
+      }
+
+      if (instance.SliceThickness) {
+        values.push(`Th: ${instance.SliceThickness}mm`);
+      }
+
+      return values.join(' ');
+    },
+  };
+
+  const manufacturerModelNameItem = {
+    id: 'ManufacturerModelName',
+    customizationType: 'ohif.overlayItem',
+    label: '',
+    title: 'Manufacturer model name',
+    attribute: 'ManufacturerModelName',
+    condition: ({ instance }) => instance && instance.ManufacturerModelName,
+  };
+
   const studyDateItem = {
     id: 'StudyDate',
     customizationType: 'ohif.overlayItem',
@@ -318,6 +359,17 @@ function CustomizableViewportOverlay({
     },
   };
 
+  const seriesNumberItem = {
+    id: 'SeriesNumber',
+    customizationType: 'ohif.overlayItem',
+    label: 'Se:',
+    title: 'Series number',
+    attribute: 'SeriesNumber',
+    condition: ({ instance }) => {
+      return instance && instance.SeriesNumber;
+    },
+  };
+
   const topLeftItems = instances
     ? instances
         .map((instance, index) => {
@@ -331,10 +383,30 @@ function CustomizableViewportOverlay({
         .flat()
     : [];
 
+  const bottomLeftItems = instances
+    ? instances
+        .map((instance, index) => {
+          return [
+            { ...fieldStrengthAndSliceThicknessItem, instanceIndex: index },
+            { ...repetitionTimeItem, instanceIndex: index },
+          ];
+        })
+        .flat()
+    : [];
+
+  const bottomRightItems = instances
+    ? instances
+        .map((instance, index) => {
+          return [{ ...seriesNumberItem, instanceIndex: index }];
+        })
+        .flat()
+    : [];
+
   const topRightItems = instances
     ? instances
         .map((instance, index) => {
           return [
+            { ...manufacturerModelNameItem, instanceIndex: index },
             { ...studyDateItem, instanceIndex: index },
             { ...seriesDescriptionItem, instanceIndex: index },
           ];
@@ -355,17 +427,18 @@ function CustomizableViewportOverlay({
         bottomLeftCustomization,
         [
           {
-            id: 'WindowLevel',
-            customizationType: 'ohif.overlayItem.windowLevel',
-          },
-          {
             id: 'ZoomLevel',
             customizationType: 'ohif.overlayItem.zoomLevel',
             condition: () => {
               const activeToolName = toolGroupService.getActiveToolForViewport(viewportId);
-              return activeToolName === 'Zoom';
+              return activeToolName === 'Zoom' || true;
             },
           },
+          {
+            id: 'WindowLevel',
+            customizationType: 'ohif.overlayItem.windowLevel',
+          },
+          ...bottomLeftItems,
         ],
         'bottomLeftOverlayItem'
       )}
@@ -376,6 +449,7 @@ function CustomizableViewportOverlay({
             id: 'InstanceNumber',
             customizationType: 'ohif.overlayItem.instanceNumber',
           },
+          ...bottomRightItems,
         ],
         'bottomRightOverlayItem'
       )}

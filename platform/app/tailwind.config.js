@@ -26,6 +26,7 @@ module.exports = {
     },
     colors: {
       overlay: 'rgba(0, 0, 0, 0.8)',
+      overlay40: 'rgba(0, 0, 0, 0.4)',
       transparent: 'transparent',
       black: '#000',
       white: '#fff',

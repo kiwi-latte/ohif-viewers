@@ -34,6 +34,7 @@ const ViewportDownloadForm = ({
   toggleAnnotations,
   loadImage,
   downloadBlob,
+  uploadAndCopyBlob,
   defaultSize,
   minimumSize,
   maximumSize,
@@ -96,6 +97,19 @@ const ViewportDownloadForm = ({
     }
 
     setKeepAspect(!keepAspect);
+  };
+
+  const [uploadState, setUploadState] = useState('idle');
+
+  const uploadAndCopy = () => {
+    setUploadState('uploading');
+    uploadAndCopyBlob(fileType[0])
+      .then(url => navigator.clipboard.writeText(url))
+      .catch(() => setUploadState('idle'))
+      .then(() => {
+        setUploadState('success');
+        setTimeout(() => setUploadState('idle'), 1000);
+      });
   };
 
   const downloadImage = () => {
@@ -401,6 +415,17 @@ const ViewportDownloadForm = ({
           name={'download'}
         >
           {t('Download')}
+        </Button>
+        <Button
+          className="ml-2"
+          disabled={hasError}
+          onClick={uploadAndCopy}
+          type={ButtonEnums.type.primary}
+          name={'uploadAndCopy'}
+        >
+          {uploadState === 'idle' && t('Upload and Copy')}
+          {uploadState === 'uploading' && t('Uploading...')}
+          {uploadState === 'success' && t('Copied')}
         </Button>
       </div>
     </div>

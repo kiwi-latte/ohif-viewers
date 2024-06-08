@@ -415,7 +415,7 @@ function commandsModule({
         return;
       }
 
-      const { uiModalService } = servicesManager.services;
+      const { uiModalService, userAuthenticationService } = servicesManager.services;
 
       if (uiModalService) {
         uiModalService.show({
@@ -425,6 +425,7 @@ function commandsModule({
             activeViewportId,
             onClose: uiModalService.hide,
             cornerstoneViewportService,
+            userAuthenticationService,
           },
           containerDimensions: 'w-[70%] max-w-[900px]',
         });

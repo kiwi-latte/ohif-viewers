@@ -67,7 +67,7 @@ function Header({
       isSticky={isSticky}
       {...props}
     >
-      <div className="relative flex h-[44px] flex-row items-center">
+      <div className="relative flex h-[44px] flex-row items-center pl-2">
         <div className="h-8">{Secondary}</div>
         <div
           ref={elRef}

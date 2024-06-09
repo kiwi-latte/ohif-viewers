@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 import Icon from '../Icon';
 import Button from '../Button';
@@ -18,8 +19,11 @@ const StudyItem = ({
   isActive,
   onClick,
   measurementService,
+  userAuthenticationService,
 }) => {
   const { t } = useTranslation('StudyItem');
+
+  const [isReloading, setIsReloading] = React.useState(false);
 
   const reload = () => {
     const measurements = measurementService.getMeasurements();
@@ -31,6 +35,18 @@ const StudyItem = ({
       if (!isConfirmed) {
         return;
       }
+    }
+
+    const studyId = new URL(window.location.href).searchParams.get('id');
+    if (studyId) {
+      const headers = userAuthenticationService.getAuthorizationHeader();
+      const studyMetadataUrl = new URL(decompressFromEncodedURIComponent(studyId));
+      studyMetadataUrl.searchParams.append('overrideGenerated', 'true');
+
+      setIsReloading(true);
+      void fetch(studyMetadataUrl, { headers }).finally(() => window.location.reload());
+
+      return;
     }
 
     window.location.reload();
@@ -53,6 +69,7 @@ const StudyItem = ({
         <div className="break-words text-sm text-blue-300">{description}</div>
         <div className="text-sm text-blue-300">{numInstances} instances</div>
         <Button
+          disabled={isReloading}
           size="small"
           className="mt-2 w-min"
           onClick={e => {
@@ -64,7 +81,8 @@ const StudyItem = ({
             name="tool-reset"
             className="h-5 w-5"
           />
-          Reload
+          {!isReloading && t('Reload')}
+          {isReloading && t('Reloading...')}
         </Button>
       </div>
       {!!trackedSeries && (
@@ -102,6 +120,9 @@ StudyItem.propTypes = {
     subscribe: PropTypes.func.isRequired,
     EVENTS: PropTypes.object.isRequired,
     VALUE_TYPES: PropTypes.object.isRequired,
+  }).isRequired,
+  userAuthenticationService: PropTypes.shape({
+    getAuthorizationHeader: PropTypes.func.isRequired,
   }).isRequired,
 };
 

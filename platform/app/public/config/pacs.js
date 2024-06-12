@@ -1,16 +1,16 @@
 window.config = {
   routerBasename: '/',
 
-  modes: [],
+  modes: ['@ohif/mode-longitudinal'],
   extensions: [],
 
   // [CAUTION]: This will degrade the performance of the application.
   // Only enable this option for debugging/ urgent purposes.
-  useSharedArrayBuffer: false,
+  useSharedArrayBuffer: true,
 
   showLoadingIndicator: true,
-  showCPUFallbackMessage: false,
-  showWarningMessageForCrossOrigin: false,
+  showCPUFallbackMessage: true,
+  showWarningMessageForCrossOrigin: true,
 
   // We acknowledged of investigational use dialog already
   investigationalUseDialog: { option: 'never' },

@@ -117,13 +117,13 @@ function _getDisplaySetsFromSeries(
     !ConceptNameCodeSequence ||
     ConceptNameCodeSequence.CodeValue !== CodeNameCodeSequenceValues.ImagingMeasurementReport
   ) {
-    servicesManager.services.uiNotificationService.show({
-      title: 'DICOM SR',
-      message:
-        'OHIF only supports TID1500 Imaging Measurement Report Structured Reports. The SR you’re trying to view is not supported.',
-      type: 'warning',
-      duration: 6000,
-    });
+    // servicesManager.services.uiNotificationService.show({
+    //   title: 'DICOM SR',
+    //   message:
+    //     'OHIF only supports TID1500 Imaging Measurement Report Structured Reports. The SR you’re trying to view is not supported.',
+    //   type: 'warning',
+    //   duration: 6000,
+    // });
     return [];
   }
 

@@ -97,5 +97,5 @@ editor in the PACS Portal.
 
 Please find the implemetation below:
 
-- [uploadAndCopyBlob@extensions/cornerstone/src/utils/CornerstoneViewportDownloadForm.tsx](extensions/cornerstone/src/utils/CornerstoneViewportDownloadForm.tsx#224-254)
-- [uploadAndCopy@platform/ui/src/components/ViewportDownloadForm/ViewportDownloadForm.tsx](platform/ui/src/components/ViewportDownloadForm/ViewportDownloadForm.tsx#104-123)
+- [uploadAndCopyBlob@extensions/cornerstone/src/utils/CornerstoneViewportDownloadForm.tsx](extensions/cornerstone/src/utils/CornerstoneViewportDownloadForm.tsx#L224-L254)
+- [uploadAndCopy@platform/ui/src/components/ViewportDownloadForm/ViewportDownloadForm.tsx](platform/ui/src/components/ViewportDownloadForm/ViewportDownloadForm.tsx#L104-L123)

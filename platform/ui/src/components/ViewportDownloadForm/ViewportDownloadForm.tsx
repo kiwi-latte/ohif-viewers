@@ -104,25 +104,21 @@ const ViewportDownloadForm = ({
   const uploadAndCopy = () => {
     setUploadState('uploading');
     uploadAndCopyBlob(fileType[0])
+      .then(url => {
+        return navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            setUploadState('success');
+            setTimeout(() => setUploadState('idle'), 2000);
+          })
+          .catch(() => {
+            setUploadState('idle');
+            window.prompt('Please copy the image URL', url);
+          });
+      })
       .catch(() => {
         setUploadState('error');
         setTimeout(() => setUploadState('idle'), 2000);
-      })
-      .then(url => {
-        try {
-          const promise = navigator.clipboard.writeText(url);
-          return promise;
-        } catch {
-          return Promise.reject(url);
-        }
-      })
-      .then(() => {
-        setUploadState('success');
-        setTimeout(() => setUploadState('idle'), 2000);
-      })
-      .catch(url => {
-        setUploadState('idle');
-        window.prompt('Please copy the image URL', url);
       });
   };
 

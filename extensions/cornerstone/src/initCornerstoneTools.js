@@ -40,8 +40,10 @@ import {
 
 import CalibrationLineTool from './tools/CalibrationLineTool';
 import ImageOverlayViewerTool from './tools/ImageOverlayViewerTool';
+import MagnifyToolCustom from './tools/MagnifyToolCustom';
 
 export default function initCornerstoneTools(configuration = {}) {
+  console.log("🚀 ~ initCornerstoneTools ~ configuration:", configuration)
   CrosshairsTool.isAnnotation = false;
   ReferenceLinesTool.isAnnotation = false;
   AdvancedMagnifyTool.isAnnotation = false;
@@ -65,7 +67,7 @@ export default function initCornerstoneTools(configuration = {}) {
   addTool(DragProbeTool);
   addTool(AngleTool);
   addTool(CobbAngleTool);
-  addTool(MagnifyTool);
+  addTool(MagnifyToolCustom);
   addTool(CrosshairsTool);
   addTool(SegmentationDisplayTool);
   addTool(RectangleScissorsTool);
